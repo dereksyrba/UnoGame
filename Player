@@ -1,0 +1,36 @@
+package UNO;
+
+import java.util.ArrayList;
+
+public class Player {
+
+	private boolean isPlayerTurn;
+	
+	ArrayList<UnoCards> playerDeck;
+	
+	//constructor
+	Player(){
+		
+	}
+	
+	//getter method to return the players deck
+	public ArrayList<UnoCards> getPlayerDeck() {
+		
+		return this.playerDeck;
+	}
+	
+	//setter method to initialize the players deck
+	public void setPlayerDeck(ArrayList<UnoCards> deck){
+		
+		//copies the passed in deck to the players deck
+		playerDeck = new ArrayList<UnoCards>(deck);
+	}
+	
+	public boolean getIsPlayerTurn() {
+		return this.isPlayerTurn;
+	}
+	
+	public void setIsPlayerTurn(boolean turn) {
+		isPlayerTurn = turn;
+	}
+}
