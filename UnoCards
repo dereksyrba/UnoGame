@@ -1,0 +1,78 @@
+package UNO;
+
+public class UnoCards {
+
+	private int cardNumber;
+	private String cardColor;
+	private boolean isWild;
+	private boolean isPlus4;
+	private boolean isPlus2;
+	private boolean isReverse;
+
+
+	public int getCardNumber() {
+
+		return this.cardNumber; 
+	}
+
+	public void setCardNumber(int number) {
+
+		this.cardNumber = number;
+	}
+
+	public String getCardColor() {
+
+		return this.cardColor; 
+	}
+
+	public void setCardColor(String color) {
+
+		this.cardColor = color;
+	}
+
+	public boolean getIsWild() {
+
+		return this.isWild;
+	}
+
+	public void setIsWild(boolean wild) {
+
+		this.isWild = wild;
+	}
+
+	public boolean getIsPlus4() {
+
+		return this.isPlus4;
+	}
+
+	public void setIsPlus4(boolean plus4) {
+
+		this.isPlus4 = plus4;
+	}
+	
+	public boolean getIsPlus2() {
+
+		return this.isPlus2;
+	}
+
+	public void setIsPlus2(boolean plus2) {
+
+		this.isPlus2 = plus2;
+	}
+	
+	public boolean getIsReverse() {
+
+		return this.isReverse;
+	}
+
+	public void setIsReverse(boolean reverse) {
+
+		this.isReverse = reverse;
+	}
+	
+
+
+
+
+
+}
