@@ -1,0 +1,118 @@
+package UNO;
+
+import java.util.ArrayList;
+
+public class UnoGame {
+
+
+	ArrayList<UnoCards> deck = new ArrayList<UnoCards>();
+
+	ArrayList<UnoCards> discardPile = new ArrayList<UnoCards>();
+	
+	Player player1 = new Player();
+	Player player2 = new Player();
+	Player player3 = new Player();
+	Player player4 = new Player();
+
+	private boolean isReverse = false;
+	
+	private String winner = "";
+
+	//need to instantiate objects for each individual card
+
+
+	//used to handle the logic of playing a card from a player deck
+	private void playCard() {
+		//need to discard the card from the player deck and into the discard pile
+		//need to check if it is a reverse, wild, or draw card
+
+	}
+
+	//handles the logic of drawing a card from the deck
+	private void drawCard(int num) {
+
+	}
+
+	//handles the turns
+	private void changeTurn() {
+		
+		if(!isReverse) {
+			
+			//handles the standard clockwise rotation
+			if(player1.getIsPlayerTurn() == true) {
+				player1.setIsPlayerTurn(false);
+				player2.setIsPlayerTurn(true);
+			}
+			
+			else if(player2.getIsPlayerTurn() == true) {
+				player2.setIsPlayerTurn(false);
+				player3.setIsPlayerTurn(true);
+			}
+			
+			else if(player3.getIsPlayerTurn() == true) {
+				player3.setIsPlayerTurn(false);
+				player4.setIsPlayerTurn(true);
+			}
+			
+			else if(player4.getIsPlayerTurn() == true) {
+				player4.setIsPlayerTurn(false);
+				player1.setIsPlayerTurn(true);
+			}
+		}
+		
+		//handles the reverse order (counter clockwise)
+		else {
+			if(player1.getIsPlayerTurn() == true) {
+				player1.setIsPlayerTurn(false);
+				player4.setIsPlayerTurn(true);
+			}
+			
+			else if(player2.getIsPlayerTurn() == true) {
+				player2.setIsPlayerTurn(false);
+				player1.setIsPlayerTurn(true);
+			}
+			
+			else if(player3.getIsPlayerTurn() == true) {
+				player3.setIsPlayerTurn(false);
+				player2.setIsPlayerTurn(true);
+			}
+			
+			else if(player4.getIsPlayerTurn() == true) {
+				player4.setIsPlayerTurn(false);
+				player3.setIsPlayerTurn(true);
+			}
+		}
+
+
+		
+		}
+	
+	private boolean isGameOver() {
+		
+		if(player1.getPlayerDeck().size() == 0) {
+			winner = "Player 1";
+			return true;
+		}
+		
+		else if(player2.getPlayerDeck().size() == 0) {
+			winner = "Player 2";
+			return true;
+		}
+		
+		else if(player3.getPlayerDeck().size() == 0) {
+			winner = "Player 3";
+			return true;
+		}
+		
+		else if(player4.getPlayerDeck().size() == 0) {
+			winner = "Player 4";
+			return true;
+		}
+		
+		return false;
+	}
+	
+	}
+
+
+
