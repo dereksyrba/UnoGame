@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
  */
 public class FXMLDocumentController implements Initializable {
     
+    UnoGame game = new UnoGame();
+    
     @FXML
     private Button drawButton;
     
@@ -72,7 +74,6 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void drawCard(ActionEvent e) {
-        //Call the Game method to draw a card
         System.out.println("Card is Drawn");
     }
     
