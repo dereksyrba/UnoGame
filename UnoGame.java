@@ -1,4 +1,4 @@
-package UNO;
+package uno;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,8 @@ public class UnoGame {
 	Player player2 = new Player();
 	Player player3 = new Player();
 	Player player4 = new Player();
+	
+	private String currrentColor;
 
 	private boolean isReverse = false;
 
@@ -21,42 +23,60 @@ public class UnoGame {
 
 	//used to handle the logic of playing a card from a player deck
 	private void playCard(Player player, UnoCards playedCard) {
-
-		if(playedCard.getIsReverse()) {
-			if(isReverse == true)
-				isReverse = false;
-			else
-				isReverse = true;	
+		if(!isPlayable(playedCard)) {
+			// Display that the card cannot be played
 		}
+		if(isPlayable(playedCard)) {
 
-		if(playedCard.getIsWild() == true) {
+			if(playedCard.getIsReverse()) {
+				if(isReverse == true)
+					isReverse = false;
+				else
+					isReverse = true;	
+			}
 
-			//FIXME
-			//change the card color of the wild card and put it on top of the pile
+			if(playedCard.getIsWild() == true) {
 
-			//make set color method
+				//FIXME
+				//change the card color of the wild card and put it on top of the pile
+
+				//make set color method
+			}
+
+			if(playedCard.getIsPlus2() == true) {
+
+				drawCard(nextPlayer(), 2);
+			}
+
+			if(playedCard.getIsPlus4() == true) {
+
+				drawCard(nextPlayer(), 4);
+			}
+
+			if(playedCard.getIsSkip() == true) {
+				//FIXME: SKIP PLAYER
+			}
+
+			//removes the card from the players deck
+			player.getPlayerDeck().remove(playedCard);
+
+			//adds the played card to the discard pile
+			discardPile.add(playedCard);
 		}
+	}
 
-		if(playedCard.getIsPlus2() == true) {
-
-			drawCard(nextPlayer(), 2);
+	private boolean isPlayable(UnoCards playedCard)
+	{
+		if(playedCard.getCardNumber() == discardPile.get(0).getCardNumber() || 
+				0 == playedCard.getCardColor().compareTo(discardPile.get(0).getCardColor()) ||
+				playedCard.getIsWild())
+		{
+			return true;
 		}
-
-		if(playedCard.getIsPlus4() == true) {
-
-			drawCard(nextPlayer(), 4);
+		else
+		{
+			return false;
 		}
-		
-		if(playedCard.getIsSkip() == true) {
-			//FIXME: SKIP PLAYER
-		}
-
-		//removes the card from the players deck
-		player.getPlayerDeck().remove(playedCard);
-		
-		//adds the played card to the discard pile
-		discardPile.add(playedCard);
-
 	}
 
 	//handles the logic of drawing a card from the deck
@@ -66,6 +86,7 @@ public class UnoGame {
 			//draws a card from the 0 index position (top) of the deck and adds it 
 			//to the players deck
 			player.getPlayerDeck().add(deck.get(0));
+			deck.remove(0);
 		}
 
 	}
@@ -314,10 +335,10 @@ public class UnoGame {
 			deck.add(newGreenSkip);
 			deck.add(newGreenPlus2);
 		}
-		
+
 		//shuffles the deck before returning it
 		shuffleDeck(deck);
-		
+
 		return deck;
 	}
 
