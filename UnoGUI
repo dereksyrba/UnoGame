@@ -21,7 +21,7 @@ public class UnoGUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLUno.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -50,7 +50,6 @@ public class UnoGUI extends Application {
             JOptionPane.showMessageDialog(null, "AI not supported in release 1.0");
             System.exit(0);
         }
-        
        
     }
     
