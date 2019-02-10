@@ -8,8 +8,23 @@ public class UnoCards {
 	private boolean isPlus4;
 	private boolean isPlus2;
 	private boolean isReverse;
+	private boolean isSkip;
 
 
+	//constructor for basic number cards
+	UnoCards(int number, String color){
+		this.setCardNumber(number);
+		this.setCardColor(color);
+	}
+	
+	//constructor for wild, plus, skip, and reverse cards
+	UnoCards(String color, boolean wild, boolean plus2, boolean plus4, boolean reverse, boolean skip){
+		this.setIsWild(wild);
+		this.setIsPlus2(plus2);
+		this.setIsPlus4(plus4);
+		this.setIsReverse(reverse);
+	}
+	
 	public int getCardNumber() {
 
 		return this.cardNumber; 
@@ -68,6 +83,16 @@ public class UnoCards {
 	public void setIsReverse(boolean reverse) {
 
 		this.isReverse = reverse;
+	}
+	
+	public boolean getIsSkip() {
+
+		return this.isSkip;
+	}
+
+	public void setIsSkip(boolean skip) {
+
+		this.isSkip = skip;
 	}
 	
 
