@@ -6,26 +6,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="758.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uno.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="758.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uno.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Button fx:id="player1PlayCard" layoutX="338.0" layoutY="717.0" mnemonicParsing="false" text="Play Card!" />
-      <Button fx:id="player1Next" layoutX="469.0" layoutY="717.0" mnemonicParsing="false" onAction="#nextCard1" text="Next" />
-      <Button fx:id="player1Prev" layoutX="242.0" layoutY="717.0" mnemonicParsing="false" onAction="#prevCard1" text="Prev" />
-      <Button fx:id="drawButton" layoutX="380.0" layoutY="299.0" mnemonicParsing="false" onAction="#drawCard" prefHeight="160.0" prefWidth="113.0" text="Draw Pile" />
-      <Button fx:id="player2Prev" layoutX="242.0" layoutY="14.0" mnemonicParsing="false" text="Prev" />
-      <Button fx:id="player2PlayCard" layoutX="338.0" layoutY="14.0" mnemonicParsing="false" text="Play Card!" />
-      <Button fx:id="player2Next" layoutX="469.0" layoutY="14.0" mnemonicParsing="false" onAction="#nextCard2" text="Next" />
-      <Label fx:id="player2Card" alignment="CENTER" layoutX="319.0" layoutY="57.0" prefHeight="160.0" prefWidth="113.0" text="Player 2 Card" />
-      <Label fx:id="player1Card" alignment="CENTER" layoutX="319.0" layoutY="549.0" prefHeight="160.0" prefWidth="113.0" text="Player 1 Card" />
-      <Label alignment="CENTER" layoutX="263.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Discard Pile" />
-      <Button fx:id="player3Prev" layoutX="14.0" layoutY="217.0" mnemonicParsing="false" text="Prev" />
-      <Button fx:id="player3PlayCard" layoutX="86.0" layoutY="217.0" mnemonicParsing="false" text="Play Card!" />
-      <Button fx:id="player3Next" layoutX="195.0" layoutY="217.0" mnemonicParsing="false" text="Next" />
-      <Label fx:id="player3Card" layoutX="70.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Player 3 Card" />
-      <Label fx:id="player4Card" layoutX="604.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Player 4 Card" />
-      <Button fx:id="player4Next" layoutX="729.0" layoutY="217.0" mnemonicParsing="false" text="Next" />
-      <Button fx:id="player4PlayCard" layoutX="620.0" layoutY="217.0" mnemonicParsing="false" text="Play Card!" />
-      <Button fx:id="player4Prev" layoutX="548.0" layoutY="217.0" mnemonicParsing="false" text="Prev" />
+      <Button fx:id="player1PlayCard" layoutX="396.0" layoutY="717.0" mnemonicParsing="false" text="Play Card!" />
+      <Button fx:id="player1Next" layoutX="527.0" layoutY="717.0" mnemonicParsing="false" onAction="#nextCard1" text="Next" />
+      <Button fx:id="player1Prev" layoutX="300.0" layoutY="717.0" mnemonicParsing="false" onAction="#prevCard1" text="Prev" />
+      <Button fx:id="drawButton" layoutX="398.0" layoutY="299.0" mnemonicParsing="false" onAction="#drawCard" prefHeight="160.0" prefWidth="113.0" text="Draw Pile" />
+      <Button fx:id="player2Prev" layoutX="527.0" layoutY="217.0" mnemonicParsing="false" text="Prev" />
+      <Button fx:id="player2PlayCard" layoutX="623.0" layoutY="217.0" mnemonicParsing="false" text="Play Card!" />
+      <Button fx:id="player2Next" layoutX="754.0" layoutY="217.0" mnemonicParsing="false" onAction="#nextCard2" text="Next" />
+      <Label fx:id="player2Card" alignment="CENTER" layoutX="607.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Player 2 Card" />
+      <Label fx:id="player1Card" alignment="CENTER" layoutX="380.0" layoutY="525.0" prefHeight="160.0" prefWidth="113.0" text="Player 1 Card" />
+      <Label alignment="CENTER" layoutX="281.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Discard Pile" />
+      <Button fx:id="player3Prev" layoutX="305.0" layoutY="30.0" mnemonicParsing="false" text="Prev" />
+      <Button fx:id="player3PlayCard" layoutX="377.0" layoutY="30.0" mnemonicParsing="false" text="Play Card!" />
+      <Button fx:id="player3Next" layoutX="486.0" layoutY="30.0" mnemonicParsing="false" text="Next" />
+      <Label fx:id="player3Card" layoutX="380.0" layoutY="109.0" prefHeight="160.0" prefWidth="113.0" text="Player 3 Card" />
+      <Label fx:id="player4Card" layoutX="68.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Player 4 Card" />
+      <Button fx:id="player4Next" layoutX="193.0" layoutY="217.0" mnemonicParsing="false" text="Next" />
+      <Button fx:id="player4PlayCard" layoutX="84.0" layoutY="217.0" mnemonicParsing="false" text="Play Card!" />
+      <Button fx:id="player4Prev" layoutX="12.0" layoutY="217.0" mnemonicParsing="false" text="Prev" />
     </children>
 </AnchorPane>
