@@ -10,89 +10,68 @@ public class UnoGame {
 
 	ArrayList<UnoCards> discardPile = new ArrayList<UnoCards>();
 
-	Player player1 = new Player();
-	Player player2 = new Player();
-	Player player3 = new Player();
-	Player player4 = new Player();
-	
-	private String currrentColor;
+	Player player1 = new Player(true);
+	Player player2 = new Player(false);
+	Player player3 = new Player(false);
+	Player player4 = new Player(false);
 
 	private boolean isReverse = false;
 
 	private String winner = "";
 
 	//used to handle the logic of playing a card from a player deck
-	private void playCard(Player player, UnoCards playedCard) {
-		if(!isPlayable(playedCard)) {
-			// Display that the card cannot be played
+	public void playCard(Player player, UnoCards playedCard) {
+
+		if(playedCard.getIsReverse()) {
+			if(isReverse == true)
+				isReverse = false;
+			else
+				isReverse = true;	
 		}
-		if(isPlayable(playedCard)) {
 
-			if(playedCard.getIsReverse()) {
-				if(isReverse == true)
-					isReverse = false;
-				else
-					isReverse = true;	
-			}
+		if(playedCard.getIsWild() == true) {
 
-			if(playedCard.getIsWild() == true) {
+			//FIXME
+			//change the card color of the wild card and put it on top of the pile
 
-				//FIXME
-				//change the card color of the wild card and put it on top of the pile
-
-				//make set color method
-			}
-
-			if(playedCard.getIsPlus2() == true) {
-
-				drawCard(nextPlayer(), 2);
-			}
-
-			if(playedCard.getIsPlus4() == true) {
-
-				drawCard(nextPlayer(), 4);
-			}
-
-			if(playedCard.getIsSkip() == true) {
-				//FIXME: SKIP PLAYER
-			}
-
-			//removes the card from the players deck
-			player.getPlayerDeck().remove(playedCard);
-
-			//adds the played card to the discard pile
-			discardPile.add(playedCard);
+			//make set color method
 		}
-	}
 
-	private boolean isPlayable(UnoCards playedCard)
-	{
-		if(playedCard.getCardNumber() == discardPile.get(0).getCardNumber() || 
-				0 == playedCard.getCardColor().compareTo(discardPile.get(0).getCardColor()) ||
-				playedCard.getIsWild())
-		{
-			return true;
+		if(playedCard.getIsPlus2() == true) {
+
+			drawCard(nextPlayer(), 2);
 		}
-		else
-		{
-			return false;
+
+		if(playedCard.getIsPlus4() == true) {
+
+			drawCard(nextPlayer(), 4);
 		}
+		
+		if(playedCard.getIsSkip() == true) {
+			//FIXME: SKIP PLAYER
+		}
+
+		//removes the card from the players deck
+		player.getPlayerDeck().remove(playedCard);
+		
+		//adds the played card to the discard pile
+		discardPile.add(playedCard);
+
 	}
 
 	//handles the logic of drawing a card from the deck
-	private void drawCard(Player player, int num) {
+	public void drawCard(Player player, int num) {
 
 		for(int i = 0; i < num; i++) { 
 			//draws a card from the 0 index position (top) of the deck and adds it 
 			//to the players deck
 			player.getPlayerDeck().add(deck.get(0));
-			deck.remove(0);
 		}
 
 	}
 
 	//handles the turns
-	private void changeTurn() {
+	public void changeTurn() {
 
 		if(!isReverse) {
 
@@ -145,8 +124,8 @@ public class UnoGame {
 
 	}
 
-	private Player nextPlayer() {
-		Player next = new Player();
+	public Player nextPlayer() {
+		Player next = new Player(false);
 
 		if(!isReverse) {
 
@@ -190,8 +169,26 @@ public class UnoGame {
 		return next;
 
 	}
+	
+	public Player currentPlayer(){
+		Player player;
+		
+		if(player1.getIsPlayerTurn())
+			player = player1;
+		
+		else if(player2.getIsPlayerTurn())
+			player = player2;
+		
+		else if(player3.getIsPlayerTurn())
+			player = player3;
+		
+		else
+			player = player4;
+		
+		return player;
+	}
 
-	private boolean isGameOver() {
+	public boolean isGameOver() {
 
 		if(player1.getPlayerDeck().size() == 0) {
 			winner = "Player 1";
@@ -215,8 +212,12 @@ public class UnoGame {
 
 		return false;
 	}
+	
+	public void nextCard(Player player) {
+		
+	}
 
-	private ArrayList<UnoCards> createDeck() {
+	public ArrayList<UnoCards> createDeck() {
 		ArrayList<UnoCards> deck = new ArrayList<UnoCards>();
 
 		//creates all of the blue number cards
@@ -335,18 +336,18 @@ public class UnoGame {
 			deck.add(newGreenSkip);
 			deck.add(newGreenPlus2);
 		}
-
+		
 		//shuffles the deck before returning it
 		shuffleDeck(deck);
-
+		
 		return deck;
 	}
 
-	private void shuffleDeck(ArrayList<UnoCards> deck) {
+	public void shuffleDeck(ArrayList<UnoCards> deck) {
 		Collections.shuffle(deck);
 	}
 
-	private void dealDeck() {
+	public void dealDeck() {
 		for (int i = 0; i < 7; i++) {
 			player1.getPlayerDeck().add(deck.get(0));
 			player2.getPlayerDeck().add(deck.get(0));
