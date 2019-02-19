@@ -1,4 +1,4 @@
-package UNO;
+package uno;
 
 public class UnoCards {
 
@@ -23,6 +23,7 @@ public class UnoCards {
 		this.setIsPlus2(plus2);
 		this.setIsPlus4(plus4);
 		this.setIsReverse(reverse);
+		this.setIsSkip(skip);
 	}
 	
 	public int getCardNumber() {
