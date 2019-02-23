@@ -19,6 +19,7 @@ public class UnoCards {
 	
 	//constructor for wild, plus, skip, and reverse cards
 	UnoCards(String color, boolean wild, boolean plus2, boolean plus4, boolean reverse, boolean skip){
+		this.setCardColor(color);
 		this.setIsWild(wild);
 		this.setIsPlus2(plus2);
 		this.setIsPlus4(plus4);
