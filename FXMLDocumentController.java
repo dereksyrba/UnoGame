@@ -25,6 +25,9 @@ public class FXMLDocumentController implements Initializable {
     private Button drawButton;
     
     @FXML
+    private Label discardPile;
+    
+    @FXML
     private Button player1PlayCard;
     
     @FXML
@@ -88,59 +91,51 @@ public class FXMLDocumentController implements Initializable {
     private void nextCard1(ActionEvent e) {
         
         game.nextCard(game.player1, game.player1.getCurrentCard(), true);
-        
-        System.out.println(game.player1.getCurrentCard().getCardColor());
-        System.out.println(game.player1.getCurrentCard().getCardNumber());
-        System.out.println(game.player1.getCurrentCard().getIsWild());
-        System.out.println(game.player1.getCurrentCard().getIsReverse());
-        System.out.println(game.player1.getCurrentCard().getIsSkip());
-        System.out.println(game.player1.getCurrentCard().getIsPlus2());
-        System.out.println(game.player1.getCurrentCard().getIsPlus4());
+        displayBoard();
     }
     
     @FXML
     private void prevCard1(ActionEvent e) {
         
         game.nextCard(game.player1, game.player1.getCurrentCard(), false);
-        
-        System.out.println(game.player1.getCurrentCard().getCardColor());
-        System.out.println(game.player1.getCurrentCard().getCardNumber());
-        System.out.println(game.player1.getCurrentCard().getIsWild());
-        System.out.println(game.player1.getCurrentCard().getIsReverse());
-        System.out.println(game.player1.getCurrentCard().getIsSkip());
-        System.out.println(game.player1.getCurrentCard().getIsPlus2());
-        System.out.println(game.player1.getCurrentCard().getIsPlus4());
+        displayBoard();
     }
     
     @FXML
     private void playCard1(ActionEvent e) {
-    	
+    	game.playCard(game.player1, game.player1.getCurrentCard());
+        displayBoard();
     }
     
     @FXML
     private void nextCard2(ActionEvent e) {
-        System.out.println("Player two views the next card");
+        game.nextCard(game.player2, game.player2.getCurrentCard(), true);
+        displayBoard();
     }
     
     
     @FXML
     private void prevCard2(ActionEvent e) {
-        
+        game.nextCard(game.player2, game.player2.getCurrentCard(), false);
+        displayBoard();
     }
     
     @FXML
     private void playCard2(ActionEvent e) {
-        
+        game.playCard(game.player2, game.player2.getCurrentCard());
+        displayBoard();
     }
     
     @FXML
     private void nextCard3(ActionEvent e) {
-        
+        game.nextCard(game.player3, game.player3.getCurrentCard(), true);
+        displayBoard();
     }
     
     @FXML
     private void prevCard3(ActionEvent e) {
-        
+        game.nextCard(game.player3, game.player3.getCurrentCard(), false);
+        displayBoard();
     }
     
     @FXML
@@ -150,12 +145,14 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void nextCard4(ActionEvent e) {
-        
+        game.nextCard(game.player4, game.player4.getCurrentCard(), true);
+        displayBoard();
     }
     
     @FXML
     private void prevCard4(ActionEvent e) {
-        
+        game.nextCard(game.player4, game.player4.getCurrentCard(), false);
+        displayBoard();
     }
     
     @FXML
