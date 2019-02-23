@@ -123,6 +123,50 @@ public class FXMLDocumentController implements Initializable {
     }
     
     
+    @FXML
+    private void prevCard2(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void playCard2(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void nextCard3(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void prevCard3(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void playCard3(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void nextCard4(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void prevCard4(ActionEvent e) {
+        
+    }
+    
+    @FXML
+    private void playCard4(ActionEvent e) {
+        
+    }
+    
+    
+    
+    
+    
     private void displayBoard() {
     	//need a current card method
     	//if(player.currentcard == "x card" then display that image
