@@ -163,10 +163,16 @@ public class FXMLDocumentController implements Initializable {
     
     
     
-    
     private void displayBoard() {
-    	//need a current card method
-    	//if(player.currentcard == "x card" then display that image
+    	player1Card.setText(Integer.toString(game.player1.getCurrentCard().getCardNumber()));
+    	player2Card.setText(Integer.toString(game.player2.getCurrentCard().getCardNumber()));
+    	player3Card.setText(Integer.toString(game.player3.getCurrentCard().getCardNumber()));
+    	player4Card.setText(Integer.toString(game.player4.getCurrentCard().getCardNumber()));
+    	
+    	player1Card.setStyle("-fx-background-color: " + game.player1.getCurrentCard().getCardColor());
+    	player2Card.setStyle("-fx-background-color: " + game.player2.getCurrentCard().getCardColor());
+    	player3Card.setStyle("-fx-background-color: " + game.player3.getCurrentCard().getCardColor());
+    	player4Card.setStyle("-fx-background-color: " + game.player4.getCurrentCard().getCardColor());
     }
             
             
