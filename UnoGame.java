@@ -29,14 +29,6 @@ public class UnoGame {
 				isReverse = true;	
 		}
 
-		if(playedCard.getIsWild() == true) {
-
-			//FIXME
-			//change the card color of the wild card and put it on top of the pile
-
-			//make set color method
-		}
-
 		if(playedCard.getIsPlus2() == true) {
 
 			drawCard(nextPlayer(), 2);
@@ -46,17 +38,42 @@ public class UnoGame {
 
 			drawCard(nextPlayer(), 4);
 		}
-		
+
 		if(playedCard.getIsSkip() == true) {
-			//FIXME: SKIP PLAYER
+			changeTurn();
 		}
 
 		//removes the card from the players deck
 		player.getPlayerDeck().remove(playedCard);
-		
-		//adds the played card to the discard pile
-		discardPile.add(playedCard);
 
+		//if player plays last card, dont change the current card to avoid error
+		if(player.getPlayerDeck().size() != 0) {
+			nextCard(player, player.getCurrentCard(), true);
+
+			//adds the played card to the discard pile
+			discardPile.add(playedCard);
+		}
+
+		changeTurn();
+
+	}
+
+	public boolean isValid(UnoCards currentCard, UnoCards top) {
+
+		if(currentCard.getIsWild())
+			return true;
+		else if(currentCard.getCardColor().equals(top.getCardColor()))
+			return true;
+		else if(currentCard.getCardNumber() == top.getCardNumber())
+			return true;
+		else if(currentCard.getIsReverse() && top.getIsReverse())
+			return true;
+		else if(currentCard.getIsPlus2() && top.getIsPlus2())
+			return true;
+		else if(currentCard.getIsSkip() && top.getIsSkip())
+			return true;
+		else
+			return false;
 	}
 
 	//handles the logic of drawing a card from the deck
@@ -66,8 +83,10 @@ public class UnoGame {
 			//draws a card from the 0 index position (top) of the deck and adds it 
 			//to the players deck
 			player.getPlayerDeck().add(deck.get(0));
+			deck.remove(deck.get(0));
 		}
 
+		changeTurn();
 	}
 
 	//handles the turns
@@ -169,22 +188,22 @@ public class UnoGame {
 		return next;
 
 	}
-	
+
 	public Player currentPlayer(){
 		Player player;
-		
+
 		if(player1.getIsPlayerTurn())
 			player = player1;
-		
+
 		else if(player2.getIsPlayerTurn())
 			player = player2;
-		
+
 		else if(player3.getIsPlayerTurn())
 			player = player3;
-		
+
 		else
 			player = player4;
-		
+
 		return player;
 	}
 
@@ -212,10 +231,10 @@ public class UnoGame {
 
 		return false;
 	}
-	
+
 	//used to allow the player to look throught their cards
 	public void nextCard(Player player, UnoCards currentCard, boolean isNext) {
-		
+
 		if(isNext == true) {
 			//if the current card is the end of the players hand, set it to the 0 position
 			if(player.getPlayerDeck().indexOf(currentCard) == player.getPlayerDeck().size() - 1) {
@@ -223,9 +242,9 @@ public class UnoGame {
 			}
 			else
 				player.setCurrentCard(player.getPlayerDeck().get(player.getPlayerDeck().indexOf(currentCard) + 1));
-			
+
 		}
-		
+
 		else {
 			if(player.getPlayerDeck().indexOf(currentCard) == 0) {
 				player.setCurrentCard(player.getPlayerDeck().get(player.getPlayerDeck().size() - 1));
@@ -233,7 +252,7 @@ public class UnoGame {
 			else
 				player.setCurrentCard(player.getPlayerDeck().get(player.getPlayerDeck().indexOf(currentCard) - 1));
 		}
-	
+
 	}
 
 	public ArrayList<UnoCards> createDeck() {
@@ -300,13 +319,13 @@ public class UnoGame {
 		for(int i = 0; i < 8; i++) {
 			//creates the 4 basic wilds
 			if(i < 4) {
-				UnoCards newWild = new UnoCards("wild", true, false, false, false, false);
+				UnoCards newWild = new UnoCards("white", -1, true, false, false, false, false);
 				deck.add(newWild);
 			}
 
 			//creates the 4 plus 4 wilds
 			else {
-				UnoCards newWild = new UnoCards("wild", true, false, true, false, false);
+				UnoCards newWild = new UnoCards("white", -1, true, false, true, false, false);
 				deck.add(newWild);
 			}
 
@@ -314,9 +333,9 @@ public class UnoGame {
 
 		//creates the blue reverse, skip, plus2 cards
 		for(int i = 0; i < 2; i++) {
-			UnoCards newBlueReverse = new UnoCards("blue", false, false, false, true, false);
-			UnoCards newBlueSkip = new UnoCards("blue", false, false, false, false, true);
-			UnoCards newBluePlus2 = new UnoCards("blue", false, true, false, false, false);
+			UnoCards newBlueReverse = new UnoCards("blue",-2, false, false, false, true, false);
+			UnoCards newBlueSkip = new UnoCards("blue", -3, false, false, false, false, true);
+			UnoCards newBluePlus2 = new UnoCards("blue", -4, false, true, false, false, false);
 
 			deck.add(newBlueReverse);
 			deck.add(newBlueSkip);
@@ -325,9 +344,9 @@ public class UnoGame {
 
 		//creates the red reverse, skip, plus2 cards
 		for(int i = 0; i < 2; i++) {
-			UnoCards newRedReverse = new UnoCards("red", false, false, false, true, false);
-			UnoCards newRedSkip = new UnoCards("red", false, false, false, false, true);
-			UnoCards newRedPlus2 = new UnoCards("red", false, true, false, false, false);
+			UnoCards newRedReverse = new UnoCards("red", -2, false, false, false, true, false);
+			UnoCards newRedSkip = new UnoCards("red", -3, false, false, false, false, true);
+			UnoCards newRedPlus2 = new UnoCards("red", -4, false, true, false, false, false);
 
 			deck.add(newRedReverse);
 			deck.add(newRedSkip);
@@ -336,9 +355,9 @@ public class UnoGame {
 
 		//creates the yellow reverse, skip, plus2, and plus4 cards
 		for(int i = 0; i < 2; i++) {
-			UnoCards newYellowReverse = new UnoCards("yellow", false, false, false, true, false);
-			UnoCards newYellowSkip = new UnoCards("yellow", false, false, false, false, true);
-			UnoCards newYellowPlus2 = new UnoCards("yellow", false, true, false, false, false);
+			UnoCards newYellowReverse = new UnoCards("yellow", -2, false, false, false, true, false);
+			UnoCards newYellowSkip = new UnoCards("yellow", -3, false, false, false, false, true);
+			UnoCards newYellowPlus2 = new UnoCards("yellow", -4, false, true, false, false, false);
 
 			deck.add(newYellowReverse);
 			deck.add(newYellowSkip);
@@ -347,18 +366,18 @@ public class UnoGame {
 
 		//creates the green reverse, skip, plus2, and plus4 cards
 		for(int i = 0; i < 2; i++) {
-			UnoCards newGreenReverse = new UnoCards("green", false, false, false, true, false);
-			UnoCards newGreenSkip = new UnoCards("green", false, false, false, false, true);
-			UnoCards newGreenPlus2 = new UnoCards("green", false, true, false, false, false);
+			UnoCards newGreenReverse = new UnoCards("green", -2, false, false, false, true, false);
+			UnoCards newGreenSkip = new UnoCards("green", -3, false, false, false, false, true);
+			UnoCards newGreenPlus2 = new UnoCards("green", -4, false, true, false, false, false);
 
 			deck.add(newGreenReverse);
 			deck.add(newGreenSkip);
 			deck.add(newGreenPlus2);
 		}
-		
+
 		//shuffles the deck before returning it
 		shuffleDeck(deck);
-		
+
 		return deck;
 	}
 
@@ -376,6 +395,20 @@ public class UnoGame {
 			deck.remove(deck.get(0));
 			player4.getPlayerDeck().add(deck.get(0));
 			deck.remove(deck.get(0));
+		}
+	}
+
+	public void reshuffle() {
+
+		if(deck.size() == 0) {
+
+			//adds each card from the discard pile back into the draw pile, except the last one (the card on top)
+			while(discardPile.size() > 1) {
+				deck.add(discardPile.get(0));
+				discardPile.remove(0);
+			}
+
+			shuffleDeck(deck);
 		}
 	}
 
