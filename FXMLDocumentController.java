@@ -18,8 +18,8 @@ import javafx.scene.control.Label;
  * @author johnathon
  */
 public class FXMLDocumentController implements Initializable {
-    
-    UnoGame game = new UnoGame();
+	
+	UnoGame game = new UnoGame();
     
     @FXML
     private Button drawButton;
@@ -72,40 +72,76 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label player4Card;
     
+    
     @FXML
     private void drawCard(ActionEvent e) {
         System.out.println("Card is Drawn");
+        
+        game.drawCard(game.currentPlayer(), 1);
+        
+        //update board icons
+        
+        game.changeTurn();
     }
     
     @FXML
     private void nextCard1(ActionEvent e) {
-        System.out.println("Player one views the next card");
-        //COPY THE FOLLOWING TWO LINES TO EVERY next AND prev METHODS
-        int index = game.player1.getPlayerDeck().indexOf(game.player1.getCurrentCard()) + 1;
         
-        game.player1.setCurrentCard(game.player1.getPlayerDeck().get(index));
+        game.nextCard(game.player1, game.player1.getCurrentCard(), true);
+        
+        System.out.println(game.player1.getCurrentCard().getCardColor());
+        System.out.println(game.player1.getCurrentCard().getCardNumber());
+        System.out.println(game.player1.getCurrentCard().getIsWild());
+        System.out.println(game.player1.getCurrentCard().getIsReverse());
+        System.out.println(game.player1.getCurrentCard().getIsSkip());
+        System.out.println(game.player1.getCurrentCard().getIsPlus2());
+        System.out.println(game.player1.getCurrentCard().getIsPlus4());
     }
     
     @FXML
     private void prevCard1(ActionEvent e) {
-        System.out.println("Player one views the previous card");
+        
+        game.nextCard(game.player1, game.player1.getCurrentCard(), false);
+        
+        System.out.println(game.player1.getCurrentCard().getCardColor());
+        System.out.println(game.player1.getCurrentCard().getCardNumber());
+        System.out.println(game.player1.getCurrentCard().getIsWild());
+        System.out.println(game.player1.getCurrentCard().getIsReverse());
+        System.out.println(game.player1.getCurrentCard().getIsSkip());
+        System.out.println(game.player1.getCurrentCard().getIsPlus2());
+        System.out.println(game.player1.getCurrentCard().getIsPlus4());
+    }
+    
+    @FXML
+    private void playCard1(ActionEvent e) {
+    	
     }
     
     @FXML
     private void nextCard2(ActionEvent e) {
         System.out.println("Player two views the next card");
     }
+    
+    
+    private void displayBoard() {
+    	//need a current card method
+    	//if(player.currentcard == "x card" then display that image
+    }
+            
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //deals the cards to players;
-        game.dealDeck();
-        //initialize the current cards in each player hand(the card they are looking at)
-        game.player1.setCurrentCard(game.player1.getPlayerDeck().get(0));
-        game.player2.setCurrentCard(game.player2.getPlayerDeck().get(0));
-        game.player3.setCurrentCard(game.player3.getPlayerDeck().get(0));
-        game.player4.setCurrentCard(game.player4.getPlayerDeck().get(0));
-        
-    }   
+    	
+    	//deals the cards to players
+    	game.dealDeck();
+    	
+    	//initialize the current cards in each players hand(the card they are looking at)
+    	game.player1.setCurrentCard(game.player1.getPlayerDeck().get(0));
+    	game.player2.setCurrentCard(game.player2.getPlayerDeck().get(0));
+    	game.player3.setCurrentCard(game.player3.getPlayerDeck().get(0));
+    	game.player4.setCurrentCard(game.player4.getPlayerDeck().get(0));
+    	
+    	
+    }    
     
 }
