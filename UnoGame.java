@@ -213,8 +213,27 @@ public class UnoGame {
 		return false;
 	}
 	
-	public void nextCard(Player player) {
+	//used to allow the player to look throught their cards
+	public void nextCard(Player player, UnoCards currentCard, boolean isNext) {
 		
+		if(isNext == true) {
+			//if the current card is the end of the players hand, set it to the 0 position
+			if(player.getPlayerDeck().indexOf(currentCard) == player.getPlayerDeck().size() - 1) {
+				player.setCurrentCard(player.getPlayerDeck().get(0));
+			}
+			else
+				player.setCurrentCard(player.getPlayerDeck().get(player.getPlayerDeck().indexOf(currentCard) + 1));
+			
+		}
+		
+		else {
+			if(player.getPlayerDeck().indexOf(currentCard) == 0) {
+				player.setCurrentCard(player.getPlayerDeck().get(player.getPlayerDeck().size() - 1));
+			}
+			else
+				player.setCurrentCard(player.getPlayerDeck().get(player.getPlayerDeck().indexOf(currentCard) - 1));
+		}
+	
 	}
 
 	public ArrayList<UnoCards> createDeck() {
@@ -350,9 +369,13 @@ public class UnoGame {
 	public void dealDeck() {
 		for (int i = 0; i < 7; i++) {
 			player1.getPlayerDeck().add(deck.get(0));
+			deck.remove(deck.get(0));
 			player2.getPlayerDeck().add(deck.get(0));
+			deck.remove(deck.get(0));
 			player3.getPlayerDeck().add(deck.get(0));
+			deck.remove(deck.get(0));
 			player4.getPlayerDeck().add(deck.get(0));
+			deck.remove(deck.get(0));
 		}
 	}
 
