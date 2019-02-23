@@ -18,7 +18,7 @@
       <Button fx:id="player2Next" layoutX="754.0" layoutY="217.0" mnemonicParsing="false" onAction="#nextCard2" text="Next" />
       <Label fx:id="player2Card" alignment="CENTER" layoutX="607.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Player 2 Card" />
       <Label fx:id="player1Card" alignment="CENTER" layoutX="380.0" layoutY="525.0" prefHeight="160.0" prefWidth="113.0" text="Player 1 Card" />
-      <Label alignment="CENTER" layoutX="281.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Discard Pile" />
+      <Label fx:id="discardPile" alignment="CENTER" layoutX="281.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Discard Pile" />
       <Button fx:id="player3Prev" layoutX="305.0" layoutY="30.0" mnemonicParsing="false" onAction="#prevCard3" text="Prev" />
       <Button fx:id="player3PlayCard" layoutX="377.0" layoutY="30.0" mnemonicParsing="false" onAction="#playCard3" text="Play Card!" />
       <Button fx:id="player3Next" layoutX="486.0" layoutY="30.0" mnemonicParsing="false" onAction="#nextCard3" text="Next" />
