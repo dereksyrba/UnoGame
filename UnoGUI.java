@@ -13,8 +13,10 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Johnathon Frocillo
+ * This class contains the main method to start the program and allow
+ * the user to choose which game type to play
+ * 
+ * @author Derek Syrba, John Frocillo, and Adrian Harrell
  */
 public class UnoGUI extends Application {
     
@@ -29,7 +31,11 @@ public class UnoGUI extends Application {
         stage.show();
     }
 
+    
     /**
+     * The main method of the program that gives the user to option
+     * between two game types, then launches the game
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
