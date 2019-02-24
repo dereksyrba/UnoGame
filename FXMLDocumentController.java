@@ -17,68 +17,99 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
+ *This class is the controller for all components of the GUI,
+ *containing each component's action listener and related game logic
+ *to link the GUI to the UnoGame class
  *
- * @author johnathon
+ * @author Derek Syrba, John Frocillo, and Adrian Harrell
  */
 public class FXMLDocumentController implements Initializable {
 
+	/**The UnoGame object to handle all of the logic in the game*/
 	UnoGame game = new UnoGame();
 
+	/**The button the player presses to draw a card from the deck*/
 	@FXML
 	private Button drawButton;
 
+	/**The label to show the top card of the discard pile*/
 	@FXML
 	private Label discardPile;
 
+	/**The button player 1 presses to play the current card they are
+	 * viewing in their hand*/
 	@FXML
 	private Button player1PlayCard;
 
+	/**The button that shows the next card in player 1's hand*/
 	@FXML
 	private Button player1Next;
 
+	/**The button that shows the previous card in player 1's hand*/
 	@FXML
 	private Button player1Prev;
 
+	/**The button player 2 presses to play the current card they are
+	 * viewing in their hand*/
 	@FXML
 	private Button player2PlayCard;
 
+	/**The button that shows the next card in player 2's hand*/
 	@FXML
 	private Button player2Next;
 
+	/**The button that shows the previous card in player 2's hand*/
 	@FXML
 	private Button player2Prev;
 
+	/**The button player 3 presses to play the current card they are
+	 * viewing in their hand*/
 	@FXML
 	private Button player3PlayCard;
 
+	/**The button that shows the next card in player 3's hand*/
 	@FXML
 	private Button player3Next;
 
+	/**The button that shows the previous card in player 3's hand*/
 	@FXML
 	private Button player3Prev;
 
+	/**The button player 4 presses to play the current card they are
+	 * viewing in their hand*/
 	@FXML
 	private Button player4PlayCard;
 
+	/**The button that shows the next card in player 4's hand*/
 	@FXML
 	private Button player4Next;
 
+	/**The button that shows the previous card in player 4's hand*/
 	@FXML
 	private Button player4Prev;
 
+	/**The label that shows the current card in player 1's hand*/
 	@FXML
 	private Label player1Card;
 
+	/**The label that shows the current card in player 2's hand*/
 	@FXML
 	private Label player2Card;
 
+	/**The label that shows the current card in player 3's hand*/
 	@FXML
 	private Label player3Card;
 
+	/**The label that shows the current card in player 4's hand*/
 	@FXML
 	private Label player4Card;
 
 
+	/**
+	 * Method that acts as an action listener for the draw card button
+	 * 
+	 * @param e - the drawButton being pressed
+	 */
 	@FXML
 	private void drawCard(ActionEvent e) {
 		System.out.println("Card is Drawn");
@@ -90,6 +121,13 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 1's next
+	 * card button
+	 * 
+	 * @param e - the player1Next button being pressed
+	 */
 	@FXML
 	private void nextCard1(ActionEvent e) {
 
@@ -97,6 +135,13 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 1's previous
+	 * card button
+	 * 
+	 * @param e - the player1Prev button being pressed
+	 */
 	@FXML
 	private void prevCard1(ActionEvent e) {
 
@@ -104,6 +149,13 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener player 1's play card
+	 * button
+	 * 
+	 * @param e - the player1PlayCard button being pressed
+	 */
 	@FXML
 	private void playCard1(ActionEvent e) {
 		if(game.isValid(game.player1.getCurrentCard(), game.discardPile.get(game.discardPile.size() - 1))){
@@ -125,6 +177,13 @@ public class FXMLDocumentController implements Initializable {
 
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 2's next
+	 * card button
+	 * 
+	 * @param e - the player2Next button being pressed
+	 */
 	@FXML
 	private void nextCard2(ActionEvent e) {
 		game.nextCard(game.player2, game.player2.getCurrentCard(), true);
@@ -132,12 +191,25 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 
+	/**
+	 * Method that acts as an action listener for player 2's previous
+	 * card button
+	 * 
+	 * @param e - the player2Prev button being pressed
+	 */
 	@FXML
 	private void prevCard2(ActionEvent e) {
 		game.nextCard(game.player2, game.player2.getCurrentCard(), false);
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 2's play card
+	 * button
+	 * 
+	 * @param e - the player2PlayCard button being pressed
+	 */
 	@FXML
 	private void playCard2(ActionEvent e) {
 		if(game.isValid(game.player2.getCurrentCard(), game.discardPile.get(game.discardPile.size() - 1))){
@@ -157,18 +229,39 @@ public class FXMLDocumentController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Not a valid move");
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 3's next
+	 * card button
+	 * 
+	 * @param e - the player3Next button being pressed
+	 */
 	@FXML
 	private void nextCard3(ActionEvent e) {
 		game.nextCard(game.player3, game.player3.getCurrentCard(), true);
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 3's previous
+	 * card button
+	 * 
+	 * @param e - the player3Prev button being pressed
+	 */
 	@FXML
 	private void prevCard3(ActionEvent e) {
 		game.nextCard(game.player3, game.player3.getCurrentCard(), false);
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 3's play
+	 * card button
+	 * 
+	 * @param e - the player3PlayCard button being pressed
+	 */
 	@FXML
 	private void playCard3(ActionEvent e) {
 		if(game.isValid(game.player3.getCurrentCard(), game.discardPile.get(game.discardPile.size() - 1))){
@@ -188,18 +281,39 @@ public class FXMLDocumentController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Not a valid move");
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 4's next
+	 * card button
+	 * 
+	 * @param e - the player4Next button being pressed
+	 */
 	@FXML
 	private void nextCard4(ActionEvent e) {
 		game.nextCard(game.player4, game.player4.getCurrentCard(), true);
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 4's previous
+	 * card button
+	 * 
+	 * @param e - the player4Prev button being pressed
+	 */
 	@FXML
 	private void prevCard4(ActionEvent e) {
 		game.nextCard(game.player4, game.player4.getCurrentCard(), false);
 		displayBoard();
 	}
 
+	
+	/**
+	 * Method that acts as an action listener for player 4's play
+	 * card button
+	 * 
+	 * @param e - the player4PlayCard button being pressed
+	 */
 	@FXML
 	private void playCard4(ActionEvent e) {
 		if(game.isValid(game.player4.getCurrentCard(), game.discardPile.get(game.discardPile.size() - 1))){
@@ -220,6 +334,11 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 
+	
+	/**
+	 * Method that provides a pop up window when a wild card is played
+	 * so the player can select a new color
+	 */
 	private void changeColor() {
 
 		String[] a = {"red", "green", "blue", "yellow"};
@@ -258,6 +377,11 @@ public class FXMLDocumentController implements Initializable {
 		}
 	}
 
+	
+	/**
+	 * Method that updates the the labels in the game display each time
+	 * a button is pressed or a turn changes
+	 */
 	private void displayBoard() {
 		if(game.player1.getCurrentCard().getIsPlus2()) {
 			player1Card.setText("+2");
@@ -417,6 +541,10 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 
+	/**
+	 * Method that sets up the initial game display when the program
+	 * is first run
+	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
