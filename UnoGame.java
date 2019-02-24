@@ -3,23 +3,45 @@ package uno;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This class handles all game logic for the UNO game
+ * 
+ * @author Derek Syrba, John Frocillo, and Adrian Harrell
+ */
 public class UnoGame {
 
-
+	/** An arraylist of UnoCards objects to resemble the deck*/
 	ArrayList<UnoCards> deck = createDeck();
 
+	/** An arraylist of UnoCards objects to resemble the discard pile*/
 	ArrayList<UnoCards> discardPile = new ArrayList<UnoCards>();
 
+	/** The first player object to resemble a player playing the game*/
 	Player player1 = new Player(true);
+
+	/** The second player object to resemble a player playing the game*/
 	Player player2 = new Player(false);
+
+	/** The third player object to resemble a player playing the game*/
 	Player player3 = new Player(false);
+
+	/** The fourth player object to resemble a player playing the game*/
 	Player player4 = new Player(false);
 
+	/** A boolean value to keep track of the clockwise or 
+	 * counterclockwise rotation of the turns*/
 	private boolean isReverse = false;
 
-	private String winner = "";
 
-	//used to handle the logic of playing a card from a player deck
+	/**
+	 * Method that handles the logic for playing a card from a players
+	 * hand into the discard pile
+	 * 
+	 * @param player - the player object that is playing the card
+	 * 
+	 * @param playedCard - the UnoCards object being played from the 
+	 * player's hand
+	 */
 	public void playCard(Player player, UnoCards playedCard) {
 
 		if(playedCard.getIsReverse()) {
@@ -58,6 +80,15 @@ public class UnoGame {
 
 	}
 
+
+	/**
+	 * Method that checks if a card being played is a valid move
+	 * 
+	 * @param currentCard - the player's card that is being played
+	 * 
+	 * @param top - the top card of the discard pile to compare the 
+	 * played card to
+	 */
 	public boolean isValid(UnoCards currentCard, UnoCards top) {
 
 		if(currentCard.getIsWild())
@@ -76,7 +107,14 @@ public class UnoGame {
 			return false;
 	}
 
-	//handles the logic of drawing a card from the deck
+
+	/**
+	 * Method that handles the logic for drawing a card from the deck
+	 * 
+	 * @param player - the player object that is drawing the card
+	 * 
+	 * @param num - the number of card to be drawn from the deck
+	 */
 	public void drawCard(Player player, int num) {
 
 		for(int i = 0; i < num; i++) { 
@@ -89,7 +127,11 @@ public class UnoGame {
 		changeTurn();
 	}
 
-	//handles the turns
+
+	/**
+	 * Method that handles the logic for changing the which player's
+	 * turn it is
+	 */
 	public void changeTurn() {
 
 		if(!isReverse) {
@@ -143,6 +185,12 @@ public class UnoGame {
 
 	}
 
+
+	/**
+	 * Method that returns which player's turn is next
+	 * 
+	 * @return next - the player who's turn is next
+	 */
 	public Player nextPlayer() {
 		Player next = new Player(false);
 
@@ -189,6 +237,12 @@ public class UnoGame {
 
 	}
 
+
+	/**
+	 * Method that returns which player's turn it currently is
+	 * 
+	 * @return player - the player who's turn it currently is
+	 */
 	public Player currentPlayer(){
 		Player player;
 
@@ -207,32 +261,47 @@ public class UnoGame {
 		return player;
 	}
 
+
+	/**
+	 * Method that returns a boolean value indicating if the game
+	 * is over or not
+	 * 
+	 * @return boolean value incicating if the game is over or not
+	 */
 	public boolean isGameOver() {
 
 		if(player1.getPlayerDeck().size() == 0) {
-			winner = "Player 1";
 			return true;
 		}
 
 		else if(player2.getPlayerDeck().size() == 0) {
-			winner = "Player 2";
 			return true;
 		}
 
 		else if(player3.getPlayerDeck().size() == 0) {
-			winner = "Player 3";
 			return true;
 		}
 
 		else if(player4.getPlayerDeck().size() == 0) {
-			winner = "Player 4";
 			return true;
 		}
 
 		return false;
 	}
 
-	//used to allow the player to look throught their cards
+
+	/**
+	 * Method that handles the logic of looking through different cards
+	 * in the player's deck
+	 * 
+	 * @param player - the player object who's hand is being looked at
+	 * 
+	 * @param currentCard - the current card being looked at by the player
+	 * 
+	 * @param isNext - a boolean value that indicates whether the
+	 * player is moving to the card to the right or left of their
+	 * current card (true for right, false for left)
+	 */
 	public void nextCard(Player player, UnoCards currentCard, boolean isNext) {
 
 		if(isNext == true) {
@@ -255,6 +324,14 @@ public class UnoGame {
 
 	}
 
+
+	/**
+	 * Method that creates all of the UnoCards objects for all 108
+	 * cards in a standard uno deck, placing them into an arraylist
+	 * and shuffling it.
+	 * 
+	 * @return deck - the arraylist that holds all of the uno cards
+	 */
 	public ArrayList<UnoCards> createDeck() {
 		ArrayList<UnoCards> deck = new ArrayList<UnoCards>();
 
@@ -381,10 +458,22 @@ public class UnoGame {
 		return deck;
 	}
 
+
+	/**
+	 * Method that shuffles the arraylist that holds the uno cards
+	 * 
+	 * @param deck - the arraylist that holds the UnoCards objects, 
+	 * resembling the deck
+	 */
 	public void shuffleDeck(ArrayList<UnoCards> deck) {
 		Collections.shuffle(deck);
 	}
 
+
+	/**
+	 * Method that handles the logic for dealing the initial 7 cards
+	 * that start in each player's hand
+	 */
 	public void dealDeck() {
 		for (int i = 0; i < 7; i++) {
 			player1.getPlayerDeck().add(deck.get(0));
@@ -398,6 +487,11 @@ public class UnoGame {
 		}
 	}
 
+
+	/**
+	 * Method that handles the logic for reshuffling the deck when
+	 * it runs out of cards, so players can continue drawing cards
+	 */
 	public void reshuffle() {
 
 		if(deck.size() == 0) {
