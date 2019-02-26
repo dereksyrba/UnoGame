@@ -11,32 +11,33 @@ import java.util.ArrayList;
 public class Player {
 
 	/**A boolean value to determine whether it is the player's
-	 * turn or not*/
+	 * turn or not.*/
 	private boolean isPlayerTurn;
 	
-	/**An arraylist of UnoCards objects that resembles the players hand*/
+	/**An arraylist of UnoCards objects that resembles the 
+	 * players hand.*/
 	ArrayList<UnoCards> playerDeck = new ArrayList<UnoCards>();
 	
 	/**An UnoCards object that resembles the card the player is
-	 * currently looking at in their hand*/
+	 * currently looking at in their hand.*/
 	UnoCards currentCard = null;
 	
 	
 	/**
-	 * Constructor for the player objects
+	 * Constructor for the player objects.
 	 * 
 	 * @param playerTurn - a boolean value to set whether it is the
 	 * player's turn or not
 	 */
-	Player(boolean playerTurn){
+	Player(final boolean playerTurn) {
 		this.setIsPlayerTurn(playerTurn);
 	}
 	
 	
 	/**
-	 * A getter method to return the player's hand
+	 * A getter method to return the player's hand.
 	 * 
-	 * @return the player's hand
+	 * @return the player's hand.
 	 */
 	public ArrayList<UnoCards> getPlayerDeck() {
 		
@@ -46,11 +47,11 @@ public class Player {
 	
 	/**
 	 * A setter method to set the player's hand to an arraylist
-	 * of cards
+	 * of cards.
 	 * 
-	 * @param deck - the set of cards to put into the player's hand
+	 * @param deck - the set of cards to put into the player's hand.
 	 */
-	public void setPlayerDeck(ArrayList<UnoCards> deck){
+	public void setPlayerDeck(final ArrayList<UnoCards> deck) {
 		
 		//copies the passed in deck to the players deck
 		playerDeck = new ArrayList<UnoCards>(deck);
@@ -59,10 +60,10 @@ public class Player {
 	
 	/**
 	 * A getter method that returns the boolean value indicating if it
-	 * is the player's turn
+	 * is the player's turn.
 	 * 
 	 * @return the isPlayerTurn instance variable indicating if it is
-	 * the player's turn or not
+	 * the player's turn or not.
 	 */
 	public boolean getIsPlayerTurn() {
 		return this.isPlayerTurn;
@@ -70,35 +71,35 @@ public class Player {
 	
 	
 	/**
-	 * A setter method to set the player's turn to true or false
+	 * A setter method to set the player's turn to true or false.
 	 * 
 	 * @param turn - a boolean variable to set the isPlayerTurn
 	 * instance variable to true or false.
 	 */
-	public void setIsPlayerTurn(boolean turn) {
+	public void setIsPlayerTurn(final boolean turn) {
 		isPlayerTurn = turn;
 	}
 	
 	
 	/**
 	 * A getter method to return the player's current card they are
-	 * looking at
+	 * looking at.
 	 * 
-	 * @return the player's current card
+	 * @return the player's current card.
 	 */
-	public UnoCards getCurrentCard(){
+	public UnoCards getCurrentCard() {
 		return this.currentCard;
 	}
 	
 	
 	/**
 	 * A setter method to set the player's current card to a new
-	 * UnoCards object
+	 * UnoCards object.
 	 * 
 	 * @param card - the UnoCards object to set the player's current
-	 * card to
+	 * card to.
 	 */
-	public void setCurrentCard(UnoCards card) {
+	public void setCurrentCard(final UnoCards card) {
 		this.currentCard = card;
 	}
 }
