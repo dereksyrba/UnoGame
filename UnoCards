@@ -2,42 +2,42 @@ package uno;
 
 /**
  * This class models uno card objects used to represent the individual
- * uno cards in the deck and player hands
+ * uno cards in the deck and player hands.
  * 
  * @author Derek Syrba, John Frocillo, and Adrian Harrell
  */
 public class UnoCards {
 
-	/**The number of the card*/
+	/**The number of the card.*/
 	private int cardNumber;
 	
-	/**The color of the card*/
+	/**The color of the card.*/
 	private String cardColor;
 	
-	/**Boolean value indicating if the card is a wild*/
+	/**Boolean value indicating if the card is a wild.*/
 	private boolean isWild;
 	
-	/**Boolean value indicating if the card is a plus 4*/
+	/**Boolean value indicating if the card is a plus 4.*/
 	private boolean isPlus4;
 	
-	/**Boolean value indicating if the card is a plus 2*/
+	/**Boolean value indicating if the card is a plus 2.*/
 	private boolean isPlus2;
 	
-	/**Boolean value indicating if the card is a reverse*/
+	/**Boolean value indicating if the card is a reverse.*/
 	private boolean isReverse;
 	
-	/**Boolean value indicating if the card is a skip*/
+	/**Boolean value indicating if the card is a skip.*/
 	private boolean isSkip;
 
 
 	/**
-	 * Constructor for making normal number cards
+	 * Constructor for making normal number cards.
 	 * 
-	 * @param number - the number of the card being made
+	 * @param number - the number of the card being made.
 	 * 
-	 * @param color - the color of the card being made
+	 * @param color - the color of the card being made.
 	 */
-	UnoCards(int number, String color){
+	UnoCards(final int number, final String color) {
 		this.setCardNumber(number);
 		this.setCardColor(color);
 	}
@@ -45,23 +45,26 @@ public class UnoCards {
 	
 	/**
 	 * Constructor for making non standard cards
-	 * (wild, plus2, reverse, skip)
+	 * (wild, plus2, reverse, skip).
 	 * 
-	 * @param color - the color of the card being made
+	 * @param color - the color of the card being made.
 	 * 
-	 * @param number - the number of the card being made
+	 * @param number - the number of the card being made.
 	 * 
-	 * @param wild - boolean value indicating if the card is wild
+	 * @param wild - boolean value indicating if the card is wild.
 	 * 
-	 * @param plus2 - boolean value indicating if the card is plus2
+	 * @param plus2 - boolean value indicating if the card is plus2.
 	 * 
-	 * @param plus4 - boolean value indicating if the card is plus4
+	 * @param plus4 - boolean value indicating if the card is plus4.
 	 * 
-	 * @param reverse - boolean value indicating if the card is reverse
+	 * @param reverse - boolean value indicating if the card is a
+	 * reverse.
 	 * 
-	 * @param skip - boolean value indicating if the card is a skip
+	 * @param skip - boolean value indicating if the card is a skip.
 	 */
-	UnoCards(String color, int number, boolean wild, boolean plus2, boolean plus4, boolean reverse, boolean skip){
+	UnoCards(final String color, final int number, final boolean wild, 
+			final boolean plus2, final boolean plus4, 
+			final boolean reverse, final boolean skip) {
 		this.setCardColor(color);
 		this.setCardNumber(number);
 		this.setIsWild(wild);
@@ -73,7 +76,7 @@ public class UnoCards {
 	
 	
 	/**
-	 * Getter method that returns the number of a card
+	 * Getter method that returns the number of a card.
 	 * 
 	 * @return the number of the card
 	 */
@@ -84,20 +87,20 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets the number of a card
+	 * Setter method that sets the number of a card.
 	 * 
-	 * @param number - the number to set the card to
+	 * @param number - the number to set the card to.
 	 */
-	public void setCardNumber(int number) {
+	public void setCardNumber(final int number) {
 
 		this.cardNumber = number;
 	}
 
 	
 	/**
-	 * Getter method that returns the color of a card
+	 * Getter method that returns the color of a card.
 	 * 
-	 * @return the color of the card
+	 * @return the color of the card.
 	 */
 	public String getCardColor() {
 
@@ -106,20 +109,20 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets the color of a card
+	 * Setter method that sets the color of a card.
 	 * 
-	 * @param color - the color to set the card to
+	 * @param color - the color to set the card to.
 	 */
-	public void setCardColor(String color) {
+	public void setCardColor(final String color) {
 
 		this.cardColor = color;
 	}
 
 	
 	/**
-	 * Getter method that returns if a card is wild or not
+	 * Getter method that returns if a card is wild or not.
 	 * 
-	 * @return boolean value indicating if the card is wild
+	 * @return boolean value indicating if the card is wild.
 	 */
 	public boolean getIsWild() {
 
@@ -128,20 +131,20 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets if a card is wild or not
+	 * Setter method that sets if a card is wild or not.
 	 * 
-	 * @param wild - boolean value to indicate if a card is wild
+	 * @param wild - boolean value to indicate if a card is wild.
 	 */
-	public void setIsWild(boolean wild) {
+	public void setIsWild(final boolean wild) {
 
 		this.isWild = wild;
 	}
 
 	
 	/**
-	 * Getter method that returns if a card is a plus 4 or not
+	 * Getter method that returns if a card is a plus 4 or not.
 	 * 
-	 * @return boolean value indicating if the card is a plus 4
+	 * @return boolean value indicating if the card is a plus 4.
 	 */
 	public boolean getIsPlus4() {
 
@@ -150,20 +153,20 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets if a card is a plus 4 or not
+	 * Setter method that sets if a card is a plus 4 or not.
 	 * 
-	 * @param plus4 - boolean value to indicate if the card is a plus 4
+	 * @param plus4 - boolean value to indicate if the card is a plus 4.
 	 */
-	public void setIsPlus4(boolean plus4) {
+	public void setIsPlus4(final boolean plus4) {
 
 		this.isPlus4 = plus4;
 	}
 	
 	
 	/**
-	 * Getter method that returns if a card is a plus 2 or not
+	 * Getter method that returns if a card is a plus 2 or not.
 	 * 
-	 * @return boolean value indicating if the card is a plus 2
+	 * @return boolean value indicating if the card is a plus 2.
 	 */
 	public boolean getIsPlus2() {
 
@@ -172,20 +175,21 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets if a card is a plus 2 or not
+	 * Setter method that sets if a card is a plus 2 or not.
 	 * 
-	 * @param plus2 - boolean value to indicate if the card is a plus 2
+	 * @param plus2 - boolean value to indicate if the card is
+	 * a plus 2.
 	 */
-	public void setIsPlus2(boolean plus2) {
+	public void setIsPlus2(final boolean plus2) {
 
 		this.isPlus2 = plus2;
 	}
 	
 	
 	/**
-	 * Getter method that returns if a card is a reverse or not
+	 * Getter method that returns if a card is a reverse or not.
 	 * 
-	 * @return boolean value indicating if the card is a reverse
+	 * @return boolean value indicating if the card is a reverse.
 	 */
 	public boolean getIsReverse() {
 
@@ -194,20 +198,21 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets if a card is a reverse or not
+	 * Setter method that sets if a card is a reverse or not.
 	 * 
-	 * @param boolean value to indicate if the card is a reverse
+	 * @param reverse - boolean value to indicate if the card is
+	 * a reverse.
 	 */
-	public void setIsReverse(boolean reverse) {
+	public void setIsReverse(final boolean reverse) {
 
 		this.isReverse = reverse;
 	}
 	
 	
 	/**
-	 * Getter method that returns if a card is a skip or not
+	 * Getter method that returns if a card is a skip or not.
 	 * 
-	 * @return boolean value indicating if the card is a skip
+	 * @return boolean value indicating if the card is a skip.
 	 */
 	public boolean getIsSkip() {
 
@@ -216,18 +221,13 @@ public class UnoCards {
 
 	
 	/**
-	 * Setter method that sets if a card is a skip or not
+	 * Setter method that sets if a card is a skip or not.
 	 * 
-	 * @param skip - booelan indicating if the card is a skip
+	 * @param skip - booelan indicating if the card is a skip.
 	 */
-	public void setIsSkip(boolean skip) {
+	public void setIsSkip(final boolean skip) {
 
 		this.isSkip = skip;
 	}
 	
-
-
-
-
-
 }
