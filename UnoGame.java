@@ -31,28 +31,63 @@ public class UnoGame {
 	/** A boolean value to keep track of the clockwise or 
 	 * counterclockwise rotation of the turns.*/
 	private boolean isReverse = false;
-
 	
+
+	/**
+	 * Getter method to return the game deck.
+	 * 
+	 * @return the game deck.
+	 */
 	public ArrayList<UnoCards> getDeck() {
 		return this.deck;
 	}
 	
+	
+	/**
+	 * Getter method to return the game discard pile.
+	 * 
+	 * @return the discard pile.
+	 */
 	public ArrayList<UnoCards> getDiscardPile() {
 		return this.discardPile;
 	}
 	
+	
+	/**
+	 * Getter method to return player1.
+	 * 
+	 * @return player 1.
+	 */
 	public Player getPlayer1() {
 		return this.player1;
 	}
 	
+	
+	/**
+	 * Getter method to return player2.
+	 * 
+	 * @return player 2.
+	 */
 	public Player getPlayer2() {
 		return this.player2;
 	}
 	
+	
+	/**
+	 * Getter method to return player3.
+	 * 
+	 * @return player 3.
+	 */
 	public Player getPlayer3() {
 		return this.player3;
 	}
 	
+	
+	/**
+	 * Getter method to return player4.
+	 * 
+	 * @return player 4.
+	 */
 	public Player getPlayer4() {
 		return this.player4;
 	}
@@ -233,7 +268,7 @@ public class UnoGame {
 			}
 			
 			//handles the reverse order (clockwise)
-		}else {
+		} else {
 			if (player1.getIsPlayerTurn()) {
 				next = player4;
 
@@ -306,7 +341,8 @@ public class UnoGame {
 	 * 
 	 * @param player - the player object who's hand is being looked at.
 	 * 
-	 * @param currentCard - the current card being looked at by the player.
+	 * @param currentCard - the current card being looked at by 
+	 * the player.
 	 * 
 	 * @param isNext - a boolean value that indicates whether the
 	 * player is moving to the card to the right or left of their
@@ -322,10 +358,11 @@ public class UnoGame {
 					== player.getPlayerDeck().size() - 1) {
 				player.setCurrentCard(player.getPlayerDeck().get(0));
 
-			} else
+			} else {
 				player.setCurrentCard(player.getPlayerDeck().get(
 						player.getPlayerDeck().indexOf(
 								currentCard) + 1));
+			}
 
 		} else {
 			if (player.getPlayerDeck().indexOf(currentCard) == 0) {
