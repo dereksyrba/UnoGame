@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package uno;
 
 import java.net.URL;
@@ -276,7 +277,7 @@ public class FXMLDocumentController implements Initializable {
 	 */
 	@FXML
 	private void playCard3(final ActionEvent e) {
-		if(game.isValid(game.getPlayer3().getCurrentCard(), 
+		if (game.isValid(game.getPlayer3().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
 			
 			if (game.getPlayer3().getCurrentCard().getIsWild()) {
@@ -365,12 +366,13 @@ public class FXMLDocumentController implements Initializable {
 
 		String[] a = {"red", "green", "blue", "yellow"};
 		
-		String input = (String)JOptionPane.showInputDialog( null,
+		String input = (String) JOptionPane.showInputDialog(null,
 				"Select A New Color:", "Wild", 
 				JOptionPane.QUESTION_MESSAGE, null, a, a[0]);
 
-		if (input == null || input.length() == 0)
+		if (input == null || input.length() == 0) {
 			game.currentPlayer().getCurrentCard().setCardColor("red");
+		}
 
 
 		//FIXME:
@@ -483,7 +485,7 @@ public class FXMLDocumentController implements Initializable {
 			discardPile.setText(Integer.toString(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardNumber()));
 		}
 
-		if (game.getPlayer1().getIsPlayerTurn() == false) {
+		if (!(game.getPlayer1().getIsPlayerTurn())) {
 			player1PlayCard.setVisible(false);
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
@@ -495,7 +497,7 @@ public class FXMLDocumentController implements Initializable {
 			player1Card.setVisible(true);
 		}
 
-		if (game.getPlayer2().getIsPlayerTurn() == false) {
+		if (!(game.getPlayer2().getIsPlayerTurn())) {
 			player2PlayCard.setVisible(false);
 			player2Next.setVisible(false);
 			player2Prev.setVisible(false);
@@ -507,7 +509,7 @@ public class FXMLDocumentController implements Initializable {
 			player2Card.setVisible(true);
 		}
 
-		if (game.getPlayer3().getIsPlayerTurn() == false) {
+		if (!(game.getPlayer3().getIsPlayerTurn())) {
 			player3PlayCard.setVisible(false);
 			player3Next.setVisible(false);
 			player3Prev.setVisible(false);
@@ -519,7 +521,7 @@ public class FXMLDocumentController implements Initializable {
 			player3Card.setVisible(true);
 		}
 
-		if (game.getPlayer4().getIsPlayerTurn() == false) {
+		if (!(game.getPlayer4().getIsPlayerTurn())) {
 			player4PlayCard.setVisible(false);
 			player4Next.setVisible(false);
 			player4Prev.setVisible(false);
@@ -555,7 +557,6 @@ public class FXMLDocumentController implements Initializable {
 		game.getPlayer4().setCurrentCard(game.getPlayer4().getPlayerDeck().get(0));
 
 		displayBoard();
-
 
 	}    
 
