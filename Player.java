@@ -3,8 +3,8 @@ package uno;
 import java.util.ArrayList;
 
 /**
- * This class models player objects that resemble the four players in the 
- * uno game, and their hands of cards.
+ * This class models player objects that resemble the four players in
+ * the uno game, and their hands of cards.
  * 
  * @author Derek Syrba, John Frocillo, and Adrian Harrell
  */
@@ -16,11 +16,11 @@ public class Player {
 	
 	/**An arraylist of UnoCards objects that resembles the 
 	 * players hand.*/
-	ArrayList<UnoCards> playerDeck = new ArrayList<UnoCards>();
+	private ArrayList<UnoCards> playerDeck = new ArrayList<UnoCards>();
 	
 	/**An UnoCards object that resembles the card the player is
 	 * currently looking at in their hand.*/
-	UnoCards currentCard = null;
+	private UnoCards currentCard = null;
 	
 	
 	/**
