@@ -7,6 +7,7 @@
 package uno;
 
 import java.net.URL;
+
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -16,6 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 /**
  *This class is the controller for all components of the GUI,
@@ -113,16 +118,19 @@ public class FXMLDocumentController implements Initializable {
 	 */
 	@FXML
 	private void drawCard(final ActionEvent e) {
-		System.out.println("Card is Drawn");
 
 		game.reshuffle();
-		
-		game.drawCard(game.currentPlayer(), 1);
-		
+
+		try {
+			game.drawCard(game.currentPlayer(), 1);
+		} catch (IndexOutOfBoundsException x) {
+			System.out.println("Error: no more cards in the deck");
+		}
+
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 1's next
 	 * card button.
@@ -137,7 +145,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 1's previous
 	 * card button.
@@ -152,7 +160,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener player 1's play card
 	 * button.
@@ -163,26 +171,26 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard1(final ActionEvent e) {
 		if (game.isValid(game.getPlayer1().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer1().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
 			game.playCard(game.getPlayer1(), game.getPlayer1().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				JOptionPane.showMessageDialog(null, "Player 1 Wins!");
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-				
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Not a valid move");
 		}
 
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 2's next
 	 * card button.
@@ -193,7 +201,7 @@ public class FXMLDocumentController implements Initializable {
 	private void nextCard2(final ActionEvent e) {
 		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
 				true);
-		
+
 		displayBoard();
 	}
 
@@ -208,11 +216,11 @@ public class FXMLDocumentController implements Initializable {
 	private void prevCard2(final ActionEvent e) {
 		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
 				false);
-		
+
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 2's play card
 	 * button.
@@ -223,26 +231,26 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard2(final ActionEvent e) {
 		if (game.isValid(game.getPlayer2().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer2().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer2(), game.getPlayer2().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				JOptionPane.showMessageDialog(null, "Player 2 Wins!");
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-			
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Not a valid move");
 		}
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 3's next
 	 * card button.
@@ -255,7 +263,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 3's previous
 	 * card button.
@@ -268,7 +276,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 3's play
 	 * card button.
@@ -279,26 +287,26 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard3(final ActionEvent e) {
 		if (game.isValid(game.getPlayer3().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer3().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer3(), game.getPlayer3().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				JOptionPane.showMessageDialog(null, "Player 3 Wins!");
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-			
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Not a valid move");
 		}
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 4's next
 	 * card button.
@@ -311,7 +319,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 4's previous
 	 * card button.
@@ -322,11 +330,11 @@ public class FXMLDocumentController implements Initializable {
 	private void prevCard4(final ActionEvent e) {
 		game.nextCard(game.getPlayer4(), game.getPlayer4().getCurrentCard(), 
 				false);
-		
+
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 4's play
 	 * card button.
@@ -337,27 +345,27 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard4(final ActionEvent e) {
 		if (game.isValid(game.getPlayer4().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer4().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer4(), game.getPlayer4().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				JOptionPane.showMessageDialog(null, "Player 4 Wins!");
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-			
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Not a valid move");
 		}
 	}
 
 
-	
+
 	/**
 	 * Method that provides a pop up window when a wild card is played
 	 * so the player can select a new color.
@@ -365,7 +373,7 @@ public class FXMLDocumentController implements Initializable {
 	private void changeColor() {
 
 		String[] a = {"red", "green", "blue", "yellow"};
-		
+
 		String input = (String) JOptionPane.showInputDialog(null,
 				"Select A New Color:", "Wild", 
 				JOptionPane.QUESTION_MESSAGE, null, a, a[0]);
@@ -394,7 +402,7 @@ public class FXMLDocumentController implements Initializable {
 			if (input.equals("yellow"))	{
 				game.currentPlayer().getCurrentCard().setCardColor("yellow");
 			}
-			
+
 		} else {
 
 			JOptionPane.showMessageDialog(null, 
@@ -402,137 +410,169 @@ public class FXMLDocumentController implements Initializable {
 		}
 	}
 
-	
+
 	/**
 	 * Method that updates the the labels in the game display each time
 	 * a button is pressed or a turn changes.
 	 */
 	private void displayBoard() {
-		if (game.getPlayer1().getCurrentCard().getIsPlus2()) {
-			player1Card.setText("+2");
-		} else if (game.getPlayer1().getCurrentCard().getIsPlus4()) {
-			player1Card.setText("Wild: +4");
-		} else if (game.getPlayer1().getCurrentCard().getIsReverse()) {
-			player1Card.setText("Reverse");
-		} else if (game.getPlayer1().getCurrentCard().getIsSkip()) {
-			player1Card.setText("Skip");
-		} else if (game.getPlayer1().getCurrentCard().getIsWild()) {
-			player1Card.setText("Wild");
-		} else {
-			player1Card.setText(Integer.toString(game.getPlayer1().getCurrentCard().getCardNumber()));
+
+
+		String currentCardImage = game.currentPlayer().getCurrentCard().getCardColor() + 
+				game.currentPlayer().getCurrentCard().getCardNumber() + ".png";
+		
+		String discardPileImage = game.getDiscardPile().get(game.getDiscardPile().size()-1).getCardColor() + 
+				game.getDiscardPile().get(game.getDiscardPile().size()-1).getCardNumber() + ".png";
+
+		Image cardImage = new Image(currentCardImage);
+		
+		Image discardImage;
+		
+		//handles the special cases of if a wild card is put into the discard pile
+		if(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsWild() && 
+				!(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsPlus4())) {
+			discardImage = new Image("white-1.png");
+		}
+		else if(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsPlus4()) {
+			discardImage = new Image("black-1.png");
+		}
+		else {
+			discardImage = new Image(discardPileImage);
 		}
 
-		if (game.getPlayer2().getCurrentCard().getIsPlus2()) {
-			player2Card.setText("+2");
-		} else if (game.getPlayer2().getCurrentCard().getIsPlus4()) {
-			player2Card.setText("Wild: +4");
-		} else if (game.getPlayer2().getCurrentCard().getIsReverse()) {
-			player2Card.setText("Reverse");
-		} else if (game.getPlayer2().getCurrentCard().getIsSkip()) {
-			player2Card.setText("Skip");
-		} else if (game.getPlayer2().getCurrentCard().getIsWild()) {
-			player2Card.setText("Wild");
-		} else {
-			player2Card.setText(Integer.toString(game.getPlayer2().getCurrentCard().getCardNumber()));
-		}
 
-		if (game.getPlayer3().getCurrentCard().getIsPlus2()) {
-			player3Card.setText("+2");
-		} else if (game.getPlayer3().getCurrentCard().getIsPlus4()) {
-			player3Card.setText("Wild: +4");
-		} else if (game.getPlayer3().getCurrentCard().getIsReverse()) {
-			player3Card.setText("Reverse");
-		} else if (game.getPlayer3().getCurrentCard().getIsSkip()) {
-			player3Card.setText("Skip");
-		} else if (game.getPlayer3().getCurrentCard().getIsWild()) {
-			player3Card.setText("Wild");
-		} else {
-			player3Card.setText(Integer.toString(game.getPlayer3().getCurrentCard().getCardNumber()));
-		}
 
-		if (game.getPlayer4().getCurrentCard().getIsPlus2()) {
-			player4Card.setText("+2");
-		} else if (game.getPlayer4().getCurrentCard().getIsPlus4()) {
-			player4Card.setText("Wild: +4");
-		} else if (game.getPlayer4().getCurrentCard().getIsReverse()) {
-			player4Card.setText("Reverse");
-		} else if (game.getPlayer4().getCurrentCard().getIsSkip()) {
-			player4Card.setText("Skip");
-		} else if (game.getPlayer4().getCurrentCard().getIsWild()) {
-			player4Card.setText("Wild");
-		} else {
-			player4Card.setText(Integer.toString(game.getPlayer4().getCurrentCard().getCardNumber()));
-		}
+		if(game.getCurrentPlayer() == game.getPlayer1()) {
+			
 
-		player1Card.setStyle("-fx-background-color: " + game.getPlayer1().getCurrentCard().getCardColor());
-		player2Card.setStyle("-fx-background-color: " + game.getPlayer2().getCurrentCard().getCardColor());
-		player3Card.setStyle("-fx-background-color: " + game.getPlayer3().getCurrentCard().getCardColor());
-		player4Card.setStyle("-fx-background-color: " + game.getPlayer4().getCurrentCard().getCardColor());
+			ImageView graphic = new ImageView(cardImage);
 
-		discardPile.setStyle("-fx-background-color: " + game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor());
+			graphic.setFitHeight(180);
+			graphic.setFitWidth(121);
 
-		if (game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsPlus2()) {
-			discardPile.setText("+2");
-		} else if (game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsPlus4()) {
-			discardPile.setText("Wild: +4");
-		} else if (game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsReverse()) {
-			discardPile.setText("Reverse");
-		} else if (game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsSkip()) {
-			discardPile.setText("Skip");
-		} else if (game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsWild()) {
-			discardPile.setText("Wild");
-		} else {
-			discardPile.setText(Integer.toString(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardNumber()));
-		}
+			player1Card.setGraphic(graphic);
 
-		if (!(game.getPlayer1().getIsPlayerTurn())) {
-			player1PlayCard.setVisible(false);
-			player1Next.setVisible(false);
-			player1Prev.setVisible(false);
-			player1Card.setVisible(false);
-		} else {
+
 			player1PlayCard.setVisible(true);
 			player1Next.setVisible(true);
 			player1Prev.setVisible(true);
 			player1Card.setVisible(true);
-		}
 
-		if (!(game.getPlayer2().getIsPlayerTurn())) {
 			player2PlayCard.setVisible(false);
 			player2Next.setVisible(false);
 			player2Prev.setVisible(false);
 			player2Card.setVisible(false);
-		} else {
-			player2PlayCard.setVisible(true);
-			player2Next.setVisible(true);
-			player2Prev.setVisible(true);
-			player2Card.setVisible(true);
-		}
 
-		if (!(game.getPlayer3().getIsPlayerTurn())) {
 			player3PlayCard.setVisible(false);
 			player3Next.setVisible(false);
 			player3Prev.setVisible(false);
 			player3Card.setVisible(false);
-		} else {
-			player3PlayCard.setVisible(true);
-			player3Next.setVisible(true);
-			player3Prev.setVisible(true);
-			player3Card.setVisible(true);
-		}
 
-		if (!(game.getPlayer4().getIsPlayerTurn())) {
 			player4PlayCard.setVisible(false);
 			player4Next.setVisible(false);
 			player4Prev.setVisible(false);
 			player4Card.setVisible(false);
-		} else {
+		}
+
+		if(game.getCurrentPlayer() == game.getPlayer2()) {
+
+			ImageView graphic = new ImageView(cardImage);
+
+			graphic.setFitHeight(180);
+			graphic.setFitWidth(121);
+
+			player2Card.setGraphic(graphic);
+
+			player1PlayCard.setVisible(false);
+			player1Next.setVisible(false);
+			player1Prev.setVisible(false);
+			player1Card.setVisible(false);
+
+			player2PlayCard.setVisible(true);
+			player2Next.setVisible(true);
+			player2Prev.setVisible(true);
+			player2Card.setVisible(true);
+
+			player3PlayCard.setVisible(false);
+			player3Next.setVisible(false);
+			player3Prev.setVisible(false);
+			player3Card.setVisible(false);
+
+			player4PlayCard.setVisible(false);
+			player4Next.setVisible(false);
+			player4Prev.setVisible(false);
+			player4Card.setVisible(false);
+		}
+
+		if(game.getCurrentPlayer() == game.getPlayer3()) {
+
+			ImageView graphic = new ImageView(cardImage);
+
+			graphic.setFitHeight(180);
+			graphic.setFitWidth(121);
+
+			player3Card.setGraphic(graphic);
+
+			player1PlayCard.setVisible(false);
+			player1Next.setVisible(false);
+			player1Prev.setVisible(false);
+			player1Card.setVisible(false);
+
+			player2PlayCard.setVisible(false);
+			player2Next.setVisible(false);
+			player2Prev.setVisible(false);
+			player2Card.setVisible(false);
+
+			player3PlayCard.setVisible(true);
+			player3Next.setVisible(true);
+			player3Prev.setVisible(true);
+			player3Card.setVisible(true);
+
+			player4PlayCard.setVisible(false);
+			player4Next.setVisible(false);
+			player4Prev.setVisible(false);
+			player4Card.setVisible(false);
+		}
+
+		if(game.getCurrentPlayer() == game.getPlayer4()) {
+
+			ImageView graphic = new ImageView(cardImage);
+
+			graphic.setFitHeight(180);
+			graphic.setFitWidth(121);
+
+			player4Card.setGraphic(graphic);
+
+			player1PlayCard.setVisible(false);
+			player1Next.setVisible(false);
+			player1Prev.setVisible(false);
+			player1Card.setVisible(false);
+
+			player2PlayCard.setVisible(false);
+			player2Next.setVisible(false);
+			player2Prev.setVisible(false);
+			player2Card.setVisible(false);
+
+			player3PlayCard.setVisible(false);
+			player3Next.setVisible(false);
+			player3Prev.setVisible(false);
+			player3Card.setVisible(false);
+
 			player4PlayCard.setVisible(true);
 			player4Next.setVisible(true);
 			player4Prev.setVisible(true);
 			player4Card.setVisible(true);
 		}
+		
+		
+		ImageView graphic = new ImageView(discardImage);
+
+		graphic.setFitHeight(180);
+		graphic.setFitWidth(121);
+
+		discardPile.setGraphic(graphic);
 	}
+
 
 
 	/**
