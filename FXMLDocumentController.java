@@ -6,21 +6,30 @@
 
 package uno;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
-
-import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  *This class is the controller for all components of the GUI,
@@ -109,7 +118,60 @@ public class FXMLDocumentController implements Initializable {
 	/**The label that shows the current card in player 4's hand.*/
 	@FXML
 	private Label player4Card;
+	
+	/** The menu item to exit the game (under 'File'). */
+    @FXML
+    private MenuItem exitButton;
+    
+    /** The menu item to show the game rules (under Help). */
+    @FXML
+    private MenuItem howToPlay;
+    
+    /**
+     * Method that acts as a listener for the exit Game button in the 
+     * File menu.
+     * 
+     * @param e  - the exitGame button being pressed.
+     */
+    @FXML
+    private void exitGame(final ActionEvent e) {
+        System.exit(0);
+    }
+    
+    @FXML
+    private void howToPlay(final ActionEvent e) {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Uno Rules");
+    	alert.setHeaderText("How to Play Uno");
 
+    	Label label = new Label("How to Play Uno: ");
+
+    	TextArea textArea = new TextArea("Every player starts with 7 cards. \n"
+    			+ "The goal is to be the first player to play all the cards in their hand. "
+    			+ "Players can play any of the cards in their hand. They must play one that "
+    			+ "matches the discard pile's color or number. If the player has no applicable "
+    			+ "cards, then they can play a wild card to change the color, or draw a card "
+    			+ "from the pile. This will complete their turn. "
+    			+ "If a player is dealt a draw 2 or plus 4 this is also their complete turn. "
+    			+ "Anytime a player has to draw a card on their turn, their turn is now over.\n"
+    			+ "When a player has played all their cards in their hand, the game is now over.");
+    	textArea.setEditable(false);
+    	textArea.setWrapText(true);
+
+    	textArea.setMaxWidth(Double.MAX_VALUE);
+    	textArea.setMaxHeight(Double.MAX_VALUE);
+    	GridPane.setVgrow(textArea, Priority.ALWAYS);
+    	GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+    	GridPane expContent = new GridPane();
+    	expContent.setMaxWidth(Double.MAX_VALUE);
+    	expContent.add(label, 0, 0);
+    	expContent.add(textArea, 0, 1);
+
+    	alert.getDialogPane().setExpandableContent(expContent);
+
+    	alert.showAndWait();
+    }
 
 	/**
 	 * Method that acts as an action listener for the draw card button.
@@ -118,19 +180,16 @@ public class FXMLDocumentController implements Initializable {
 	 */
 	@FXML
 	private void drawCard(final ActionEvent e) {
+		System.out.println("Card is Drawn");
 
 		game.reshuffle();
-
-		try {
-			game.drawCard(game.currentPlayer(), 1);
-		} catch (IndexOutOfBoundsException x) {
-			System.out.println("Error: no more cards in the deck");
-		}
-
+		
+		game.drawCard(game.currentPlayer(), 1);
+		
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 1's next
 	 * card button.
@@ -145,7 +204,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 1's previous
 	 * card button.
@@ -160,7 +219,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener player 1's play card
 	 * button.
@@ -171,26 +230,33 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard1(final ActionEvent e) {
 		if (game.isValid(game.getPlayer1().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
+			
 			if (game.getPlayer1().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
+			
 			game.playCard(game.getPlayer1(), game.getPlayer1().getCurrentCard());
-
+			
 			if (game.isGameOver()) {
-				JOptionPane.showMessageDialog(null, "Player 1 Wins!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Player 1 wins!");
+				alert.showAndWait();
 				System.exit(0);
 			}
-
+			
 			displayBoard();
-
+				
 		} else {
-			JOptionPane.showMessageDialog(null, "Not a valid move");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Not a valid move!");
+			alert.showAndWait();
 		}
 
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 2's next
 	 * card button.
@@ -201,7 +267,7 @@ public class FXMLDocumentController implements Initializable {
 	private void nextCard2(final ActionEvent e) {
 		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
 				true);
-
+		
 		displayBoard();
 	}
 
@@ -216,11 +282,11 @@ public class FXMLDocumentController implements Initializable {
 	private void prevCard2(final ActionEvent e) {
 		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
 				false);
-
+		
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 2's play card
 	 * button.
@@ -231,26 +297,32 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard2(final ActionEvent e) {
 		if (game.isValid(game.getPlayer2().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
+			
 			if (game.getPlayer2().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-
+			
 			game.playCard(game.getPlayer2(), game.getPlayer2().getCurrentCard());
-
+			
 			if (game.isGameOver()) {
-				JOptionPane.showMessageDialog(null, "Player 2 Wins!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Player 2 Wins!");
+				alert.showAndWait();
 				System.exit(0);
 			}
-
+			
 			displayBoard();
-
+			
 		} else {
-			JOptionPane.showMessageDialog(null, "Not a valid move");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Not a valid move!");
+			alert.showAndWait();
 		}
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 3's next
 	 * card button.
@@ -263,7 +335,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 3's previous
 	 * card button.
@@ -276,7 +348,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 3's play
 	 * card button.
@@ -287,26 +359,32 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard3(final ActionEvent e) {
 		if (game.isValid(game.getPlayer3().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
+			
 			if (game.getPlayer3().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-
+			
 			game.playCard(game.getPlayer3(), game.getPlayer3().getCurrentCard());
-
+			
 			if (game.isGameOver()) {
-				JOptionPane.showMessageDialog(null, "Player 3 Wins!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Player 3 Wins!");
+				alert.showAndWait();
 				System.exit(0);
 			}
-
+			
 			displayBoard();
-
+			
 		} else {
-			JOptionPane.showMessageDialog(null, "Not a valid move");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Not a valid move!");
+			alert.showAndWait();
 		}
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 4's next
 	 * card button.
@@ -319,7 +397,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 4's previous
 	 * card button.
@@ -330,11 +408,11 @@ public class FXMLDocumentController implements Initializable {
 	private void prevCard4(final ActionEvent e) {
 		game.nextCard(game.getPlayer4(), game.getPlayer4().getCurrentCard(), 
 				false);
-
+		
 		displayBoard();
 	}
 
-
+	
 	/**
 	 * Method that acts as an action listener for player 4's play
 	 * card button.
@@ -345,79 +423,92 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard4(final ActionEvent e) {
 		if (game.isValid(game.getPlayer4().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
+			
 			if (game.getPlayer4().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-
+			
 			game.playCard(game.getPlayer4(), game.getPlayer4().getCurrentCard());
-
+			
 			if (game.isGameOver()) {
-				JOptionPane.showMessageDialog(null, "Player 4 Wins!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Player 4 Wins!");
+				alert.showAndWait();
 				System.exit(0);
 			}
-
+			
 			displayBoard();
-
+			
 		} else {
-			JOptionPane.showMessageDialog(null, "Not a valid move");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Not a valid move!");
+			alert.showAndWait();
 		}
 	}
 
 
-
+	
 	/**
 	 * Method that provides a pop up window when a wild card is played
 	 * so the player can select a new color.
 	 */
 	private void changeColor() {
 
-		String[] a = {"red", "green", "blue", "yellow"};
+		List<String> choices = new ArrayList<>();
+		choices.add("red");
+		choices.add("green");
+		choices.add("blue");
+		choices.add("yellow");
 
-		String input = (String) JOptionPane.showInputDialog(null,
-				"Select A New Color:", "Wild", 
-				JOptionPane.QUESTION_MESSAGE, null, a, a[0]);
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("red", choices);
+		dialog.setTitle("Wild Card");
+		//dialog.setHeaderText("Look, a Choice Dialog");
+		dialog.setContentText("Choose Select a New Color:");
+		
+		Optional<String> input = dialog.showAndWait();
+		
 
-		if (input == null || input.length() == 0) {
+		if (input == null || input.get().length() == 0) {
 			game.currentPlayer().getCurrentCard().setCardColor("red");
 		}
 
 
 		//FIXME:
-		if (!(input.equals(game.currentPlayer().
+		if (!(input.get().equals(game.currentPlayer().
 				getCurrentCard().getCardColor()))) {
 
-			if (input.equals("red"))	{
+			if (input.get().equals("red"))	{
 				game.currentPlayer().getCurrentCard().setCardColor("red");
 			}
 
-			if (input.equals("green")) {
+			if (input.get().equals("green")) {
 				game.currentPlayer().getCurrentCard().setCardColor("green");
 			}
 
-			if (input.equals("blue"))	{
+			if (input.get().equals("blue"))	{
 				game.currentPlayer().getCurrentCard().setCardColor("blue");
 			}
 
-			if (input.equals("yellow"))	{
+			if (input.get().equals("yellow"))	{
 				game.currentPlayer().getCurrentCard().setCardColor("yellow");
 			}
-
+			
 		} else {
 
-			JOptionPane.showMessageDialog(null, 
-					"Can't select the same color");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Can't select the same color!");
+			alert.showAndWait();
 		}
 	}
-
-
+	
 	/**
 	 * Method that updates the the labels in the game display each time
 	 * a button is pressed or a turn changes.
 	 */
 	private void displayBoard() {
-
-
 		String currentCardImage = game.currentPlayer().getCurrentCard().getCardColor() + 
 				game.currentPlayer().getCurrentCard().getCardNumber() + ".png";
 		
@@ -596,7 +687,6 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 
-
 	/**
 	 * Method that sets up the initial game display when the program
 	 * is first run.
@@ -620,6 +710,19 @@ public class FXMLDocumentController implements Initializable {
 
 		displayBoard();
 
-	}    
+	}
+	/**
+	//START
+	TranslateTransition move = new TranslateTransition();
+	move.setDuration(Duration.seconds(2));
+	move.setNode(player1Card);
+	player1Card.toFront();
+	double origX = player1Card.getLayoutX();
+	double origY = player1Card.getLayoutY();
+	move.setToX(discardPile.getLayoutX() - origX);
+	move.setToY(discardPile.getLayoutY() - origY);
+	move.play();
+	//END
+	**/
 
 }
