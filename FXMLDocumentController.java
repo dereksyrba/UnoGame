@@ -428,6 +428,21 @@ public class FXMLDocumentController implements Initializable {
 		
 		Image discardImage;
 		
+		Image cardBack = new Image("cardBack.png");
+		
+		ImageView cardBackImage1 = new ImageView(cardBack);
+		ImageView cardBackImage2 = new ImageView(cardBack);
+		ImageView cardBackImage3 = new ImageView(cardBack);
+		
+		cardBackImage1.setFitHeight(180);
+		cardBackImage1.setFitWidth(121);
+		
+		cardBackImage2.setFitHeight(180);
+		cardBackImage2.setFitWidth(121);
+		
+		cardBackImage3.setFitHeight(180);
+		cardBackImage3.setFitWidth(121);
+		
 		//handles the special cases of if a wild card is put into the discard pile
 		if(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsWild() && 
 				!(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsPlus4())) {
@@ -442,7 +457,7 @@ public class FXMLDocumentController implements Initializable {
 
 
 
-		if(game.getCurrentPlayer() == game.getPlayer1()) {
+		if(game.currentPlayer() == game.getPlayer1()) {
 			
 
 			ImageView graphic = new ImageView(cardImage);
@@ -451,120 +466,127 @@ public class FXMLDocumentController implements Initializable {
 			graphic.setFitWidth(121);
 
 			player1Card.setGraphic(graphic);
-
+			player2Card.setGraphic(cardBackImage1);
+			player3Card.setGraphic(cardBackImage2);
+			player4Card.setGraphic(cardBackImage3);
+			
 
 			player1PlayCard.setVisible(true);
 			player1Next.setVisible(true);
 			player1Prev.setVisible(true);
-			player1Card.setVisible(true);
 
 			player2PlayCard.setVisible(false);
 			player2Next.setVisible(false);
 			player2Prev.setVisible(false);
-			player2Card.setVisible(false);
 
 			player3PlayCard.setVisible(false);
 			player3Next.setVisible(false);
 			player3Prev.setVisible(false);
-			player3Card.setVisible(false);
 
 			player4PlayCard.setVisible(false);
 			player4Next.setVisible(false);
 			player4Prev.setVisible(false);
-			player4Card.setVisible(false);
 		}
 
-		if(game.getCurrentPlayer() == game.getPlayer2()) {
+		if(game.currentPlayer() == game.getPlayer2()) {
 
 			ImageView graphic = new ImageView(cardImage);
 
 			graphic.setFitHeight(180);
 			graphic.setFitWidth(121);
 
+			player1Card.setGraphic(cardBackImage1);
 			player2Card.setGraphic(graphic);
+			player3Card.setGraphic(cardBackImage2);
+			player4Card.setGraphic(cardBackImage3);
 
 			player1PlayCard.setVisible(false);
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
-			player1Card.setVisible(false);
 
 			player2PlayCard.setVisible(true);
 			player2Next.setVisible(true);
 			player2Prev.setVisible(true);
-			player2Card.setVisible(true);
 
 			player3PlayCard.setVisible(false);
 			player3Next.setVisible(false);
 			player3Prev.setVisible(false);
-			player3Card.setVisible(false);
 
 			player4PlayCard.setVisible(false);
 			player4Next.setVisible(false);
 			player4Prev.setVisible(false);
-			player4Card.setVisible(false);
 		}
 
-		if(game.getCurrentPlayer() == game.getPlayer3()) {
+		if(game.currentPlayer() == game.getPlayer3()) {
 
 			ImageView graphic = new ImageView(cardImage);
 
 			graphic.setFitHeight(180);
 			graphic.setFitWidth(121);
 
+			player1Card.setGraphic(cardBackImage1);
+			player2Card.setGraphic(cardBackImage2);
 			player3Card.setGraphic(graphic);
+			player4Card.setGraphic(cardBackImage3);
+			
+			player1Card.setVisible(true);
+			player2Card.setVisible(true);
+			player3Card.setVisible(true);
+			player4Card.setVisible(true);
 
 			player1PlayCard.setVisible(false);
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
-			player1Card.setVisible(false);
 
 			player2PlayCard.setVisible(false);
 			player2Next.setVisible(false);
 			player2Prev.setVisible(false);
-			player2Card.setVisible(false);
 
 			player3PlayCard.setVisible(true);
 			player3Next.setVisible(true);
 			player3Prev.setVisible(true);
-			player3Card.setVisible(true);
 
 			player4PlayCard.setVisible(false);
 			player4Next.setVisible(false);
 			player4Prev.setVisible(false);
-			player4Card.setVisible(false);
 		}
 
-		if(game.getCurrentPlayer() == game.getPlayer4()) {
+		if(game.currentPlayer() == game.getPlayer4()) {
 
 			ImageView graphic = new ImageView(cardImage);
 
 			graphic.setFitHeight(180);
 			graphic.setFitWidth(121);
 
+			player1Card.setGraphic(cardBackImage1);
+			player2Card.setGraphic(cardBackImage2);
+			player3Card.setGraphic(cardBackImage3);
 			player4Card.setGraphic(graphic);
+			
+			player1Card.setVisible(true);
+			player2Card.setVisible(true);
+			player3Card.setVisible(true);
+			player4Card.setVisible(true);
 
 			player1PlayCard.setVisible(false);
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
-			player1Card.setVisible(false);
 
 			player2PlayCard.setVisible(false);
 			player2Next.setVisible(false);
 			player2Prev.setVisible(false);
-			player2Card.setVisible(false);
 
 			player3PlayCard.setVisible(false);
 			player3Next.setVisible(false);
 			player3Prev.setVisible(false);
-			player3Card.setVisible(false);
 
 			player4PlayCard.setVisible(true);
 			player4Next.setVisible(true);
 			player4Prev.setVisible(true);
-			player4Card.setVisible(true);
 		}
 		
 		
+		//displays the card at the top of the discard pile
 		ImageView graphic = new ImageView(discardImage);
 
 		graphic.setFitHeight(180);
