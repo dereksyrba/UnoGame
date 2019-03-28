@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,11 +10,15 @@
 
 <AnchorPane id="AnchorPane" prefHeight="758.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uno.FXMLDocumentController">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <ImageView fitHeight="758.0" fitWidth="817.0" opacity="0.8" pickOnBounds="true">
+         <image>
+            <Image url="@background.jpg" />
+         </image>
+      </ImageView>
       <Button fx:id="player1PlayCard" layoutX="396.0" layoutY="717.0" mnemonicParsing="false" onAction="#playCard1" text="Play Card!" />
       <Button fx:id="player1Next" layoutX="527.0" layoutY="717.0" mnemonicParsing="false" onAction="#nextCard1" text="Next" />
       <Button fx:id="player1Prev" layoutX="300.0" layoutY="717.0" mnemonicParsing="false" onAction="#prevCard1" text="Prev" />
-      <Button fx:id="drawButton" layoutX="398.0" layoutY="299.0" mnemonicParsing="false" onAction="#drawCard" prefHeight="160.0" prefWidth="113.0" text="Draw Pile" />
+      <Button fx:id="drawButton" layoutX="421.0" layoutY="299.0" mnemonicParsing="false" onAction="#drawCard" prefHeight="160.0" prefWidth="113.0" text="Draw Pile" />
       <Button fx:id="player2Prev" layoutX="527.0" layoutY="217.0" mnemonicParsing="false" onAction="#prevCard2" text="Prev" />
       <Button fx:id="player2PlayCard" layoutX="623.0" layoutY="217.0" mnemonicParsing="false" onAction="#playCard2" text="Play Card!" />
       <Button fx:id="player2Next" layoutX="754.0" layoutY="217.0" mnemonicParsing="false" onAction="#nextCard2" text="Next" />
@@ -21,11 +26,12 @@
          <font>
             <Font size="28.0" />
          </font></Label>
-      <Label fx:id="player1Card" alignment="CENTER" layoutX="380.0" layoutY="525.0" prefHeight="160.0" prefWidth="113.0" text="##">
+      <Label fx:id="discardPile" alignment="CENTER" layoutX="272.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Discard">
          <font>
             <Font size="28.0" />
-         </font></Label>
-      <Label fx:id="discardPile" alignment="CENTER" layoutX="281.0" layoutY="299.0" prefHeight="160.0" prefWidth="113.0" text="Discard">
+         </font>
+      </Label>
+      <Label fx:id="player1Card" alignment="CENTER" layoutX="380.0" layoutY="525.0" prefHeight="160.0" prefWidth="113.0" text="##">
          <font>
             <Font size="28.0" />
          </font></Label>
@@ -43,5 +49,19 @@
       <Button fx:id="player4Next" layoutX="193.0" layoutY="217.0" mnemonicParsing="false" onAction="#nextCard4" text="Next" />
       <Button fx:id="player4PlayCard" layoutX="84.0" layoutY="217.0" mnemonicParsing="false" onAction="#playCard4" text="Play Card!" />
       <Button fx:id="player4Prev" layoutX="12.0" layoutY="217.0" mnemonicParsing="false" onAction="#prevCard4" text="Prev" />
+      <MenuBar prefHeight="29.0" prefWidth="817.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="howToPlay" mnemonicParsing="false" onAction="#howToPlay" text="How to Play" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </AnchorPane>
