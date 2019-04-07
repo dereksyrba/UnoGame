@@ -127,6 +127,26 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem howToPlay;
     
+    /** How many cards player 1 has left. */
+    @FXML
+    private Label player1CardsLeft;
+    
+    /** How many cards player 2 has left. */
+    @FXML
+    private Label player2CardsLeft;
+    
+    /** How many cards player 3 has left. */
+    @FXML
+    private Label player3CardsLeft;
+    
+    /** How many cards player 4 has left. */
+    @FXML
+    private Label player4CardsLeft;
+    
+    @FXML
+    private Label currentColor;
+    
+    
     /**
      * Method that acts as a listener for the exit Game button in the 
      * File menu.
@@ -253,6 +273,7 @@ public class FXMLDocumentController implements Initializable {
 			alert.setContentText("Not a valid move!");
 			alert.showAndWait();
 		}
+		
 
 	}
 
@@ -684,6 +705,13 @@ public class FXMLDocumentController implements Initializable {
 		graphic.setFitWidth(121);
 
 		discardPile.setGraphic(graphic);
+		
+		player1CardsLeft.setText("Cards Left: " + game.getPlayer1().getPlayerDeck().size());
+		player2CardsLeft.setText("Cards Left: " + game.getPlayer2().getPlayerDeck().size());
+		player3CardsLeft.setText("Cards Left: " + game.getPlayer3().getPlayerDeck().size());
+		player4CardsLeft.setText("Cards Left: " + game.getPlayer4().getPlayerDeck().size());
+		currentColor.setText("Current Color: " + (game.getDiscardPile().get(game.getDiscardPile().size()-1).getCardColor()));
+				
 	}
 
 
@@ -709,7 +737,6 @@ public class FXMLDocumentController implements Initializable {
 		game.getPlayer4().setCurrentCard(game.getPlayer4().getPlayerDeck().get(0));
 
 		displayBoard();
-
 	}
 	/**
 	//START
