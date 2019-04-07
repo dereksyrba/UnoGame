@@ -118,80 +118,80 @@ public class FXMLDocumentController implements Initializable {
 	/**The label that shows the current card in player 4's hand.*/
 	@FXML
 	private Label player4Card;
-	
+
 	/** The menu item to exit the game (under 'File'). */
-    @FXML
-    private MenuItem exitButton;
-    
-    /** The menu item to show the game rules (under Help). */
-    @FXML
-    private MenuItem howToPlay;
-    
-    /** How many cards player 1 has left. */
-    @FXML
-    private Label player1CardsLeft;
-    
-    /** How many cards player 2 has left. */
-    @FXML
-    private Label player2CardsLeft;
-    
-    /** How many cards player 3 has left. */
-    @FXML
-    private Label player3CardsLeft;
-    
-    /** How many cards player 4 has left. */
-    @FXML
-    private Label player4CardsLeft;
-    
-    @FXML
-    private Label currentColor;
-    
-    
-    /**
-     * Method that acts as a listener for the exit Game button in the 
-     * File menu.
-     * 
-     * @param e  - the exitGame button being pressed.
-     */
-    @FXML
-    private void exitGame(final ActionEvent e) {
-        System.exit(0);
-    }
-    
-    @FXML
-    private void howToPlay(final ActionEvent e) {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Uno Rules");
-    	alert.setHeaderText("How to Play Uno");
+	@FXML
+	private MenuItem exitButton;
 
-    	Label label = new Label("How to Play Uno: ");
+	/** The menu item to show the game rules (under Help). */
+	@FXML
+	private MenuItem howToPlay;
 
-    	TextArea textArea = new TextArea("Every player starts with 7 cards. \n"
-    			+ "The goal is to be the first player to play all the cards in their hand. "
-    			+ "Players can play any of the cards in their hand. They must play one that "
-    			+ "matches the discard pile's color or number. If the player has no applicable "
-    			+ "cards, then they can play a wild card to change the color, or draw a card "
-    			+ "from the pile. This will complete their turn. "
-    			+ "If a player is dealt a draw 2 or plus 4 this is also their complete turn. "
-    			+ "Anytime a player has to draw a card on their turn, their turn is now over.\n"
-    			+ "When a player has played all their cards in their hand, the game is now over.");
-    	textArea.setEditable(false);
-    	textArea.setWrapText(true);
+	/** How many cards player 1 has left. */
+	@FXML
+	private Label player1CardsLeft;
 
-    	textArea.setMaxWidth(Double.MAX_VALUE);
-    	textArea.setMaxHeight(Double.MAX_VALUE);
-    	GridPane.setVgrow(textArea, Priority.ALWAYS);
-    	GridPane.setHgrow(textArea, Priority.ALWAYS);
+	/** How many cards player 2 has left. */
+	@FXML
+	private Label player2CardsLeft;
 
-    	GridPane expContent = new GridPane();
-    	expContent.setMaxWidth(Double.MAX_VALUE);
-    	expContent.add(label, 0, 0);
-    	expContent.add(textArea, 0, 1);
+	/** How many cards player 3 has left. */
+	@FXML
+	private Label player3CardsLeft;
 
-    	alert.getDialogPane().setExpandableContent(expContent);
+	/** How many cards player 4 has left. */
+	@FXML
+	private Label player4CardsLeft;
 
-    	alert.showAndWait();
-    }
+	@FXML
+	private Label currentColor;
+
+
+	/**
+	 * Method that acts as a listener for the exit Game button in the 
+	 * File menu.
+	 * 
+	 * @param e  - the exitGame button being pressed.
+	 */
+	@FXML
+	private void exitGame(final ActionEvent e) {
+		System.exit(0);
+	}
+
+	@FXML
+	private void howToPlay(final ActionEvent e) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Uno Rules");
+		alert.setHeaderText("How to Play Uno");
+
+		Label label = new Label("How to Play Uno: ");
+
+		TextArea textArea = new TextArea("Every player starts with 7 cards. \n"
+				+ "The goal is to be the first player to play all the cards in their hand. "
+				+ "Players can play any of the cards in their hand. They must play one that "
+				+ "matches the discard pile's color or number. If the player has no applicable "
+				+ "cards, then they can play a wild card to change the color, or draw a card "
+				+ "from the pile. This will complete their turn. "
+				+ "If a player is dealt a draw 2 or plus 4 this is also their complete turn. "
+				+ "Anytime a player has to draw a card on their turn, their turn is now over.\n"
+				+ "When a player has played all their cards in their hand, the game is now over.");
+		textArea.setEditable(false);
+		textArea.setWrapText(true);
+
+		textArea.setMaxWidth(Double.MAX_VALUE);
+		textArea.setMaxHeight(Double.MAX_VALUE);
+		GridPane.setVgrow(textArea, Priority.ALWAYS);
+		GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+		GridPane expContent = new GridPane();
+		expContent.setMaxWidth(Double.MAX_VALUE);
+		expContent.add(label, 0, 0);
+		expContent.add(textArea, 0, 1);
+
+		alert.getDialogPane().setExpandableContent(expContent);
+
+		alert.showAndWait();
+	}
 
 	/**
 	 * Method that acts as an action listener for the draw card button.
@@ -200,16 +200,15 @@ public class FXMLDocumentController implements Initializable {
 	 */
 	@FXML
 	private void drawCard(final ActionEvent e) {
-		System.out.println("Card is Drawn");
 
 		game.reshuffle();
-		
+
 		game.drawCard(game.currentPlayer(), 1);
-		
+
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 1's next
 	 * card button.
@@ -224,7 +223,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 1's previous
 	 * card button.
@@ -239,7 +238,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener player 1's play card
 	 * button.
@@ -250,13 +249,13 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard1(final ActionEvent e) {
 		if (game.isValid(game.getPlayer1().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer1().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer1(), game.getPlayer1().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText(null);
@@ -264,20 +263,20 @@ public class FXMLDocumentController implements Initializable {
 				alert.showAndWait();
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-				
+
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setContentText("Not a valid move!");
 			alert.showAndWait();
 		}
-		
+
 
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 2's next
 	 * card button.
@@ -288,7 +287,7 @@ public class FXMLDocumentController implements Initializable {
 	private void nextCard2(final ActionEvent e) {
 		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
 				true);
-		
+
 		displayBoard();
 	}
 
@@ -303,11 +302,11 @@ public class FXMLDocumentController implements Initializable {
 	private void prevCard2(final ActionEvent e) {
 		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
 				false);
-		
+
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 2's play card
 	 * button.
@@ -318,13 +317,13 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard2(final ActionEvent e) {
 		if (game.isValid(game.getPlayer2().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer2().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer2(), game.getPlayer2().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText(null);
@@ -332,9 +331,9 @@ public class FXMLDocumentController implements Initializable {
 				alert.showAndWait();
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-			
+
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -343,7 +342,7 @@ public class FXMLDocumentController implements Initializable {
 		}
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 3's next
 	 * card button.
@@ -356,7 +355,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 3's previous
 	 * card button.
@@ -369,7 +368,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 3's play
 	 * card button.
@@ -380,13 +379,13 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard3(final ActionEvent e) {
 		if (game.isValid(game.getPlayer3().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer3().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer3(), game.getPlayer3().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText(null);
@@ -394,9 +393,9 @@ public class FXMLDocumentController implements Initializable {
 				alert.showAndWait();
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-			
+
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -405,7 +404,7 @@ public class FXMLDocumentController implements Initializable {
 		}
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 4's next
 	 * card button.
@@ -418,7 +417,7 @@ public class FXMLDocumentController implements Initializable {
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 4's previous
 	 * card button.
@@ -429,11 +428,11 @@ public class FXMLDocumentController implements Initializable {
 	private void prevCard4(final ActionEvent e) {
 		game.nextCard(game.getPlayer4(), game.getPlayer4().getCurrentCard(), 
 				false);
-		
+
 		displayBoard();
 	}
 
-	
+
 	/**
 	 * Method that acts as an action listener for player 4's play
 	 * card button.
@@ -444,13 +443,13 @@ public class FXMLDocumentController implements Initializable {
 	private void playCard4(final ActionEvent e) {
 		if (game.isValid(game.getPlayer4().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-			
+
 			if (game.getPlayer4().getCurrentCard().getIsWild()) {
 				changeColor();
 			}
-			
+
 			game.playCard(game.getPlayer4(), game.getPlayer4().getCurrentCard());
-			
+
 			if (game.isGameOver()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText(null);
@@ -458,9 +457,9 @@ public class FXMLDocumentController implements Initializable {
 				alert.showAndWait();
 				System.exit(0);
 			}
-			
+
 			displayBoard();
-			
+
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -470,65 +469,65 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 
-	
+
 	/**
 	 * Method that provides a pop up window when a wild card is played
 	 * so the player can select a new color.
 	 */
 	private void changeColor() {
-		
+
 
 		List<String> choices = new ArrayList<>();
 		choices.add("red");
 		choices.add("green");
 		choices.add("blue");
 		choices.add("yellow");
-		
+
 		Optional<String> input;
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("red", choices);
 		dialog.setTitle("Wild Card");
 		//dialog.setHeaderText("Look, a Choice Dialog");
 		dialog.setContentText("Choose Select a New Color:");
-		
+
 		do {
-			
-		input = dialog.showAndWait();
-		
-		
-		if(input.get().equals(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor())) {
-			
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Can't select the same color!");
-			alert.showAndWait();
-			
-		}
-		
-		
-		else {
-			
-			if (input.get().equals("red"))	{
-				game.currentPlayer().getCurrentCard().setCardColor("red");
+
+			input = dialog.showAndWait();
+
+
+			if(input.get().equals(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor())) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Can't select the same color!");
+				alert.showAndWait();
+
 			}
 
-			else if (input.get().equals("green")) {
-				game.currentPlayer().getCurrentCard().setCardColor("green");
+
+			else {
+
+				if (input.get().equals("red"))	{
+					game.currentPlayer().getCurrentCard().setCardColor("red");
+				}
+
+				else if (input.get().equals("green")) {
+					game.currentPlayer().getCurrentCard().setCardColor("green");
+				}
+
+				else if (input.get().equals("blue"))	{
+					game.currentPlayer().getCurrentCard().setCardColor("blue");
+				}
+
+				else if (input.get().equals("yellow"))	{
+					game.currentPlayer().getCurrentCard().setCardColor("yellow");
+				}
 			}
 
-			else if (input.get().equals("blue"))	{
-				game.currentPlayer().getCurrentCard().setCardColor("blue");
-			}
+		}while(input.get().equals(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor()));
 
-			else if (input.get().equals("yellow"))	{
-				game.currentPlayer().getCurrentCard().setCardColor("yellow");
-			}
-		}
-		
-	}while(input.get().equals(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor()));
-		
 	}
-	
+
 	/**
 	 * Method that updates the the labels in the game display each time
 	 * a button is pressed or a turn changes.
@@ -536,29 +535,29 @@ public class FXMLDocumentController implements Initializable {
 	private void displayBoard() {
 		String currentCardImage = game.currentPlayer().getCurrentCard().getCardColor() + 
 				game.currentPlayer().getCurrentCard().getCardNumber() + ".png";
-		
+
 		String discardPileImage = game.getDiscardPile().get(game.getDiscardPile().size()-1).getCardColor() + 
 				game.getDiscardPile().get(game.getDiscardPile().size()-1).getCardNumber() + ".png";
 
 		Image cardImage = new Image(currentCardImage);
-		
+
 		Image discardImage;
-		
+
 		Image cardBack = new Image("cardBack.png");
-		
+
 		ImageView cardBackImage1 = new ImageView(cardBack);
 		ImageView cardBackImage2 = new ImageView(cardBack);
 		ImageView cardBackImage3 = new ImageView(cardBack);
-		
+
 		cardBackImage1.setFitHeight(180);
 		cardBackImage1.setFitWidth(121);
-		
+
 		cardBackImage2.setFitHeight(180);
 		cardBackImage2.setFitWidth(121);
-		
+
 		cardBackImage3.setFitHeight(180);
 		cardBackImage3.setFitWidth(121);
-		
+
 		//handles the special cases of if a wild card is put into the discard pile
 		if(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsWild() && 
 				!(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsPlus4())) {
@@ -574,7 +573,7 @@ public class FXMLDocumentController implements Initializable {
 
 
 		if(game.currentPlayer() == game.getPlayer1()) {
-			
+
 
 			ImageView graphic = new ImageView(cardImage);
 
@@ -585,7 +584,7 @@ public class FXMLDocumentController implements Initializable {
 			player2Card.setGraphic(cardBackImage1);
 			player3Card.setGraphic(cardBackImage2);
 			player4Card.setGraphic(cardBackImage3);
-			
+
 
 			player1PlayCard.setVisible(true);
 			player1Next.setVisible(true);
@@ -644,7 +643,7 @@ public class FXMLDocumentController implements Initializable {
 			player2Card.setGraphic(cardBackImage2);
 			player3Card.setGraphic(graphic);
 			player4Card.setGraphic(cardBackImage3);
-			
+
 			player1Card.setVisible(true);
 			player2Card.setVisible(true);
 			player3Card.setVisible(true);
@@ -678,7 +677,7 @@ public class FXMLDocumentController implements Initializable {
 			player2Card.setGraphic(cardBackImage2);
 			player3Card.setGraphic(cardBackImage3);
 			player4Card.setGraphic(graphic);
-			
+
 			player1Card.setVisible(true);
 			player2Card.setVisible(true);
 			player3Card.setVisible(true);
@@ -700,8 +699,8 @@ public class FXMLDocumentController implements Initializable {
 			player4Next.setVisible(true);
 			player4Prev.setVisible(true);
 		}
-		
-		
+
+
 		//displays the card at the top of the discard pile
 		ImageView graphic = new ImageView(discardImage);
 
@@ -709,13 +708,13 @@ public class FXMLDocumentController implements Initializable {
 		graphic.setFitWidth(121);
 
 		discardPile.setGraphic(graphic);
-		
+
 		player1CardsLeft.setText("Cards Left: " + game.getPlayer1().getPlayerDeck().size());
 		player2CardsLeft.setText("Cards Left: " + game.getPlayer2().getPlayerDeck().size());
 		player3CardsLeft.setText("Cards Left: " + game.getPlayer3().getPlayerDeck().size());
 		player4CardsLeft.setText("Cards Left: " + game.getPlayer4().getPlayerDeck().size());
 		currentColor.setText("Current Color: " + (game.getDiscardPile().get(game.getDiscardPile().size()-1).getCardColor()));
-				
+
 	}
 
 
@@ -737,6 +736,7 @@ public class FXMLDocumentController implements Initializable {
 				game.getDeck().remove(i);
 			}
 		}
+		
 
 		//initialize the current cards in each players hand
 		//(the card they are looking at)
@@ -759,6 +759,6 @@ public class FXMLDocumentController implements Initializable {
 	move.setToY(discardPile.getLayoutY() - origY);
 	move.play();
 	//END
-	**/
+	 **/
 
 }
