@@ -730,8 +730,13 @@ public class FXMLDocumentController implements Initializable {
 		game.dealDeck();
 
 		//plays the first card
-		game.getDiscardPile().add(game.getDeck().get(0));
-		game.getDeck().remove(0);
+		for(int i =0; i < game.getDeck().size(); i++) {
+			if(!(game.getDeck().get(i).getIsWild() || game.getDeck().get(i).getIsReverse() ||
+					game.getDeck().get(i).getIsSkip() || game.getDeck().get(i).getIsPlus2())) {
+				game.getDiscardPile().add(game.getDeck().get(i));
+				game.getDeck().remove(i);
+			}
+		}
 
 		//initialize the current cards in each players hand
 		//(the card they are looking at)
