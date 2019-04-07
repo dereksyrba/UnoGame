@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -31,14 +32,14 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="player1Card" alignment="CENTER" layoutX="380.0" layoutY="525.0" prefHeight="160.0" prefWidth="113.0" text="##">
+      <Label fx:id="player1Card" alignment="CENTER" layoutX="380.0" layoutY="515.0" prefHeight="160.0" prefWidth="113.0" text="##">
          <font>
             <Font size="28.0" />
          </font></Label>
       <Button fx:id="player3Prev" layoutX="305.0" layoutY="30.0" mnemonicParsing="false" onAction="#prevCard3" text="Prev" />
       <Button fx:id="player3PlayCard" layoutX="377.0" layoutY="30.0" mnemonicParsing="false" onAction="#playCard3" text="Play Card!" />
       <Button fx:id="player3Next" layoutX="486.0" layoutY="30.0" mnemonicParsing="false" onAction="#nextCard3" text="Next" />
-      <Label fx:id="player3Card" alignment="CENTER" layoutX="380.0" layoutY="109.0" prefHeight="160.0" prefWidth="113.0" text="##">
+      <Label fx:id="player3Card" alignment="CENTER" layoutX="380.0" layoutY="110.0" prefHeight="160.0" prefWidth="113.0" text="##">
          <font>
             <Font size="28.0" />
          </font></Label>
@@ -63,5 +64,10 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Label fx:id="player3CardsLeft" layoutX="385.0" layoutY="73.0" text="Cards Left: " textFill="WHITE" />
+      <Label fx:id="player1CardsLeft" layoutX="401.0" layoutY="696.0" text="Cards Left: " textFill="WHITE" />
+      <Label fx:id="player4CardsLeft" layoutX="89.0" layoutY="481.0" text="Cards Left: " textFill="WHITE" />
+      <Label fx:id="player2CardsLeft" layoutX="631.0" layoutY="481.0" text="Cards Left: " textFill="WHITE" />
+      <Label fx:id="currentColor" layoutX="12.0" layoutY="35.0" text="Current Color: " textFill="WHITE" />
     </children>
 </AnchorPane>
