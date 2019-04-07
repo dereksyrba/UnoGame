@@ -476,53 +476,57 @@ public class FXMLDocumentController implements Initializable {
 	 * so the player can select a new color.
 	 */
 	private void changeColor() {
+		
 
 		List<String> choices = new ArrayList<>();
 		choices.add("red");
 		choices.add("green");
 		choices.add("blue");
 		choices.add("yellow");
+		
+		Optional<String> input;
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("red", choices);
 		dialog.setTitle("Wild Card");
 		//dialog.setHeaderText("Look, a Choice Dialog");
 		dialog.setContentText("Choose Select a New Color:");
 		
-		Optional<String> input = dialog.showAndWait();
-		
-
-		if (input == null || input.get().length() == 0) {
-			game.currentPlayer().getCurrentCard().setCardColor("red");
-		}
-
-
-		//FIXME:
-		if (!(input.get().equals(game.currentPlayer().
-				getCurrentCard().getCardColor()))) {
-
-			if (input.get().equals("red"))	{
-				game.currentPlayer().getCurrentCard().setCardColor("red");
-			}
-
-			if (input.get().equals("green")) {
-				game.currentPlayer().getCurrentCard().setCardColor("green");
-			}
-
-			if (input.get().equals("blue"))	{
-				game.currentPlayer().getCurrentCard().setCardColor("blue");
-			}
-
-			if (input.get().equals("yellow"))	{
-				game.currentPlayer().getCurrentCard().setCardColor("yellow");
-			}
+		do {
 			
-		} else {
-
+		input = dialog.showAndWait();
+		
+		
+		if(input.get().equals(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor())) {
+			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setContentText("Can't select the same color!");
 			alert.showAndWait();
+			
 		}
+		
+		
+		else {
+			
+			if (input.get().equals("red"))	{
+				game.currentPlayer().getCurrentCard().setCardColor("red");
+			}
+
+			else if (input.get().equals("green")) {
+				game.currentPlayer().getCurrentCard().setCardColor("green");
+			}
+
+			else if (input.get().equals("blue"))	{
+				game.currentPlayer().getCurrentCard().setCardColor("blue");
+			}
+
+			else if (input.get().equals("yellow"))	{
+				game.currentPlayer().getCurrentCard().setCardColor("yellow");
+			}
+		}
+		
+	}while(input.get().equals(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor()));
+		
 	}
 	
 	/**
