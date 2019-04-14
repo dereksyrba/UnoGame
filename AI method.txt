@@ -1,14 +1,15 @@
 //TODO Let AI make a decision of the color based on the majority color in their deck
 		public void aiMove(Player player) {
-			String currcolor = discardPile.get(0).getCardColor();
+			String currcolor = discardPile.get((discardPile.size() -1)).getCardColor();
 			float cardsOfCurrColor = 0;
 			float deckSize = player.getPlayerDeck().size();
 			String majorityColor;
+			boolean hasWild = false;
 			boolean hasValidCard = false;
 			
 			for(int i = 0; i < deckSize; i++)
 			{
-				if(isValid(player.getPlayerDeck().get(i), discardPile.get(0)))
+				if(isValid(player.getPlayerDeck().get(i), discardPile.get(discardPile.size() - 1)))
 				{
 					hasValidCard = true;
 					break;
@@ -80,15 +81,24 @@
 				majorityColor = "yellow";
 			}
 			
+			for(int i = 0; i < deckSize; i++)
+			{
+				if(player.getPlayerDeck().get(i).getIsWild())
+				{
+					hasWild = true;
+					break;
+				}
+			}
+			
 			// If the ratio of cards of current color to size of whole deck is unfavorable, play a wild card if possible
-			if(cardsOfCurrColor/deckSize < 0.5)
+			if(cardsOfCurrColor/deckSize < 0.5 && hasWild)
 			{
 				for(int i = 0; i < deckSize; i++)
 				{
 					if(player.getPlayerDeck().get(i).getIsWild())
 					{
 						playCard(player, player.getPlayerDeck().get(i));
-						//TODO
+						discardPile.get(discardPile.size()-1).setCardColor(majorityColor);
 					}
 				}
 			}
@@ -96,7 +106,7 @@
 			{
 					for(int n = 0; n < deckSize; n++)
 					{
-							if(player.getPlayerDeck().get(n).getIsPlus2() && isValid(player.getPlayerDeck().get(n), discardPile.get(0)))
+							if(player.getPlayerDeck().get(n).getIsPlus2() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 							{
 								playCard(player, player.getPlayerDeck().get(n));
 							}
@@ -104,7 +114,7 @@
 					
 					for(int n = 0; n < deckSize; n++)
 					{
-						if(player.getPlayerDeck().get(n).getIsSkip() && isValid(player.getPlayerDeck().get(n), discardPile.get(0)))
+						if(player.getPlayerDeck().get(n).getIsSkip() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 						{
 							playCard(player, player.getPlayerDeck().get(n));
 						}
@@ -113,7 +123,7 @@
 					
 					for(int n = 0; n < deckSize; n++)
 					{
-						if(player.getPlayerDeck().get(n).getIsReverse() && isValid(player.getPlayerDeck().get(n), discardPile.get(0)))
+						if(player.getPlayerDeck().get(n).getIsReverse() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 						{
 							playCard(player, player.getPlayerDeck().get(n));
 						}
@@ -122,7 +132,7 @@
 					
 					for(int n = 0; n < deckSize; n++)
 					{
-						if(isValid(player.getPlayerDeck().get(n), discardPile.get(0)))
+						if(isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 						{
 							playCard(player, player.getPlayerDeck().get(n));
 						}
