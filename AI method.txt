@@ -6,7 +6,6 @@
 			String majorityColor;
 			boolean hasWild = false;
 			boolean hasValidCard = false;
-			boolean flag = false;
 			
 			for(int i = 0; i < deckSize; i++)
 			{
@@ -100,58 +99,46 @@
 					{
 						playCard(player, player.getPlayerDeck().get(i));
 						discardPile.get(discardPile.size()-1).setCardColor(majorityColor);
+						return;
 					}
 				}
 			}
 			else
 			{
-				if(!flag)
-				{
 					for(int n = 0; n < deckSize; n++)
 					{
 							if(player.getPlayerDeck().get(n).getIsPlus2() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 							{
 								playCard(player, player.getPlayerDeck().get(n));
-								flag = true;
+								return;
 							}
 					}
-				}
-				
-				if(!flag)
-				{
-					for(int n = 0; n < deckSize; n++)
+					for(int n = 0; n < deckSize-1; n++)
 					{
 						if(player.getPlayerDeck().get(n).getIsSkip() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 						{
 							playCard(player, player.getPlayerDeck().get(n));
-							flag = true;
+							return;
 						}
 					}
-				}
-					
-				if(!flag)
-				{
+
 					for(int n = 0; n < deckSize; n++)
 					{
 						if(player.getPlayerDeck().get(n).getIsReverse() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 						{
 							playCard(player, player.getPlayerDeck().get(n));
-							flag = true;
+							return;
 						}
 					}
-				}
 					
-				if(!flag)
-				{	
 					for(int n = 0; n < deckSize; n++)
 					{
 						if(isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 						{
 							playCard(player, player.getPlayerDeck().get(n));
-							flag = true;
+							return;
 						}
-					}
-				}	
+					}	
 				}
 			}
 			else
