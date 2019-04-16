@@ -3,6 +3,9 @@ package uno;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  * This class handles all game logic for the UNO game.
  * 
@@ -184,7 +187,7 @@ public class UnoGame {
 	 * @param num - the number of card to be drawn from the deck.
 	 */
 	public void drawCard(final Player player, final int num) {
-		
+
 		reshuffle();
 
 		for (int i = 0; i < num; i++) { 
@@ -577,12 +580,24 @@ public class UnoGame {
 
 			shuffleDeck(deck);
 		}
+		
+		if(deck.size() == 0) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Congrats! You just broke the game");
+			alert.showAndWait();
+			System.exit(0);
+		}
 	}
 
 
-	//TODO Let AI make a decision of the color based on the majority color in their deck
+	/**
+	 * Method that that makes the current computer play a card from their hand
+	 * @param player - the player corresponding to which computers turn it is
+	 * @return boolean - true if the computer makes a play, false if the computer draws a card
+	 */
 	public boolean aiMove(Player player) {
-		
+
 		String currcolor = discardPile.get((discardPile.size() -1)).getCardColor();
 		float cardsOfCurrColor = 0;
 		float deckSize = player.getPlayerDeck().size();
@@ -670,14 +685,15 @@ public class UnoGame {
 			}
 
 			// If the ratio of cards of current color to size of whole deck is unfavorable, play a wild card if possible
-			if(cardsOfCurrColor/deckSize < 0.3 && hasWild)
+			if(cardsOfCurrColor/deckSize < .5 && hasWild)
 			{
 				for(int i = 0; i < deckSize; i++)
 				{
 					if(player.getPlayerDeck().get(i).getIsWild())
 					{
+						player.getPlayerDeck().get(i).setCardColor(majorityColor);
 						playCard(player, player.getPlayerDeck().get(i));
-						discardPile.get(discardPile.size()-1).setCardColor(majorityColor);
+						//discardPile.get(discardPile.size()-1).setCardColor(majorityColor);
 						return true;
 					}
 				}
@@ -714,21 +730,29 @@ public class UnoGame {
 				{
 					if(isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
 					{
+						if(player.getPlayerDeck().get(n).getIsWild()) {
+							player.getPlayerDeck().get(n).setCardColor(majorityColor);
+						}
+
 						playCard(player, player.getPlayerDeck().get(n));
 						return true;
+
 					}
-				}	
+				}
 			}
+
+
 		}
+
 		else
 		{
 			drawCard(player, 1);
 		}
-		
+
 		return false;
-		
+
 	}
-	
+
 }
 
 
