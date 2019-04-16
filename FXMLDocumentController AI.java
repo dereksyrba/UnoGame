@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +32,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.util.Duration;
 
 /**
  *This class is the controller for all components of the GUI,
@@ -38,7 +41,7 @@ import javafx.scene.layout.Priority;
  *
  * @author Derek Syrba, John Frocillo, and Adrian Harrell
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentControllerAI implements Initializable {
 
 	/**The UnoGame object to handle all of the logic in the game.*/
 	private UnoGame game = new UnoGame();
@@ -63,45 +66,6 @@ public class FXMLDocumentController implements Initializable {
 	/**The button that shows the previous card in player 1's hand.*/
 	@FXML
 	private Button player1Prev;
-
-	/**The button player 2 presses to play the current card they are
-	 * viewing in their hand.*/
-	@FXML
-	private Button player2PlayCard;
-
-	/**The button that shows the next card in player 2's hand.*/
-	@FXML
-	private Button player2Next;
-
-	/**The button that shows the previous card in player 2's hand.*/
-	@FXML
-	private Button player2Prev;
-
-	/**The button player 3 presses to play the current card they are
-	 * viewing in their hand.*/
-	@FXML
-	private Button player3PlayCard;
-
-	/**The button that shows the next card in player 3's hand.*/
-	@FXML
-	private Button player3Next;
-
-	/**The button that shows the previous card in player 3's hand.*/
-	@FXML
-	private Button player3Prev;
-
-	/**The button player 4 presses to play the current card they are
-	 * viewing in their hand.*/
-	@FXML
-	private Button player4PlayCard;
-
-	/**The button that shows the next card in player 4's hand.*/
-	@FXML
-	private Button player4Next;
-
-	/**The button that shows the previous card in player 4's hand.*/
-	@FXML
-	private Button player4Prev;
 
 	/**The label that shows the current card in player 1's hand.*/
 	@FXML
@@ -200,12 +164,14 @@ public class FXMLDocumentController implements Initializable {
 	 */
 	@FXML
 	private void drawCard(final ActionEvent e) {
-
-		game.reshuffle();
-
+		
 		game.drawCard(game.currentPlayer(), 1);
 
-		displayBoard();
+		//ai moves
+
+		while(game.currentPlayer() != game.getPlayer1()) {
+			AI();
+		}
 	}
 
 
@@ -247,6 +213,7 @@ public class FXMLDocumentController implements Initializable {
 	 */
 	@FXML
 	private void playCard1(final ActionEvent e) {
+
 		if (game.isValid(game.getPlayer1().getCurrentCard(), 
 				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
 
@@ -256,6 +223,13 @@ public class FXMLDocumentController implements Initializable {
 
 			game.playCard(game.getPlayer1(), game.getPlayer1().getCurrentCard());
 
+			if(game.getPlayer1().getPlayerDeck().size() == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Player 1 UNO!");
+				alert.showAndWait();
+			}
+
 			if (game.isGameOver()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText(null);
@@ -264,7 +238,8 @@ public class FXMLDocumentController implements Initializable {
 				System.exit(0);
 			}
 
-			displayBoard();
+			displayBoard();	
+
 
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -273,201 +248,16 @@ public class FXMLDocumentController implements Initializable {
 			alert.showAndWait();
 		}
 
+		//ai moves
 
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 2's next
-	 * card button.
-	 * 
-	 * @param e - the player2Next button being pressed.
-	 */
-	@FXML
-	private void nextCard2(final ActionEvent e) {
-		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
-				true);
-
-		displayBoard();
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 2's previous
-	 * card button.
-	 * 
-	 * @param e - the player2Prev button being pressed.
-	 */
-	@FXML
-	private void prevCard2(final ActionEvent e) {
-		game.nextCard(game.getPlayer2(), game.getPlayer2().getCurrentCard(), 
-				false);
-
-		displayBoard();
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 2's play card
-	 * button.
-	 * 
-	 * @param e - the player2PlayCard button being pressed.
-	 */
-	@FXML
-	private void playCard2(final ActionEvent e) {
-		if (game.isValid(game.getPlayer2().getCurrentCard(), 
-				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
-			if (game.getPlayer2().getCurrentCard().getIsWild()) {
-				changeColor();
-			}
-
-			game.playCard(game.getPlayer2(), game.getPlayer2().getCurrentCard());
-
-			if (game.isGameOver()) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setContentText("Player 2 Wins!");
-				alert.showAndWait();
-				System.exit(0);
-			}
-
-			displayBoard();
-
-		} else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Not a valid move!");
-			alert.showAndWait();
+		while(game.currentPlayer() != game.getPlayer1()) {
+			AI();
 		}
+
+
+
+
 	}
-
-
-	/**
-	 * Method that acts as an action listener for player 3's next
-	 * card button.
-	 * 
-	 * @param e - the player3Next button being pressed.
-	 */
-	@FXML
-	private void nextCard3(final ActionEvent e) {
-		game.nextCard(game.getPlayer3(), game.getPlayer3().getCurrentCard(), true);
-		displayBoard();
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 3's previous
-	 * card button.
-	 * 
-	 * @param e - the player3Prev button being pressed.
-	 */
-	@FXML
-	private void prevCard3(final ActionEvent e) {
-		game.nextCard(game.getPlayer3(), game.getPlayer3().getCurrentCard(), false);
-		displayBoard();
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 3's play
-	 * card button.
-	 * 
-	 * @param e - the player3PlayCard button being pressed.
-	 */
-	@FXML
-	private void playCard3(final ActionEvent e) {
-		if (game.isValid(game.getPlayer3().getCurrentCard(), 
-				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
-			if (game.getPlayer3().getCurrentCard().getIsWild()) {
-				changeColor();
-			}
-
-			game.playCard(game.getPlayer3(), game.getPlayer3().getCurrentCard());
-
-			if (game.isGameOver()) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setContentText("Player 3 Wins!");
-				alert.showAndWait();
-				System.exit(0);
-			}
-
-			displayBoard();
-
-		} else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Not a valid move!");
-			alert.showAndWait();
-		}
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 4's next
-	 * card button.
-	 * 
-	 * @param e - the player4Next button being pressed.
-	 */
-	@FXML
-	private void nextCard4(final ActionEvent e) {
-		game.nextCard(game.getPlayer4(), game.getPlayer4().getCurrentCard(), true);
-		displayBoard();
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 4's previous
-	 * card button.
-	 * 
-	 * @param e - the player4Prev button being pressed.
-	 */
-	@FXML
-	private void prevCard4(final ActionEvent e) {
-		game.nextCard(game.getPlayer4(), game.getPlayer4().getCurrentCard(), 
-				false);
-
-		displayBoard();
-	}
-
-
-	/**
-	 * Method that acts as an action listener for player 4's play
-	 * card button.
-	 * 
-	 * @param e - the player4PlayCard button being pressed.
-	 */
-	@FXML
-	private void playCard4(final ActionEvent e) {
-		if (game.isValid(game.getPlayer4().getCurrentCard(), 
-				game.getDiscardPile().get(game.getDiscardPile().size() - 1))) {
-
-			if (game.getPlayer4().getCurrentCard().getIsWild()) {
-				changeColor();
-			}
-
-			game.playCard(game.getPlayer4(), game.getPlayer4().getCurrentCard());
-
-			if (game.isGameOver()) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setContentText("Player 4 Wins!");
-				alert.showAndWait();
-				System.exit(0);
-			}
-
-			displayBoard();
-
-		} else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Not a valid move!");
-			alert.showAndWait();
-		}
-	}
-
 
 
 	/**
@@ -590,17 +380,6 @@ public class FXMLDocumentController implements Initializable {
 			player1Next.setVisible(true);
 			player1Prev.setVisible(true);
 
-			player2PlayCard.setVisible(false);
-			player2Next.setVisible(false);
-			player2Prev.setVisible(false);
-
-			player3PlayCard.setVisible(false);
-			player3Next.setVisible(false);
-			player3Prev.setVisible(false);
-
-			player4PlayCard.setVisible(false);
-			player4Next.setVisible(false);
-			player4Prev.setVisible(false);
 		}
 
 		if(game.currentPlayer() == game.getPlayer2()) {
@@ -619,17 +398,6 @@ public class FXMLDocumentController implements Initializable {
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
 
-			player2PlayCard.setVisible(true);
-			player2Next.setVisible(true);
-			player2Prev.setVisible(true);
-
-			player3PlayCard.setVisible(false);
-			player3Next.setVisible(false);
-			player3Prev.setVisible(false);
-
-			player4PlayCard.setVisible(false);
-			player4Next.setVisible(false);
-			player4Prev.setVisible(false);
 		}
 
 		if(game.currentPlayer() == game.getPlayer3()) {
@@ -653,17 +421,6 @@ public class FXMLDocumentController implements Initializable {
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
 
-			player2PlayCard.setVisible(false);
-			player2Next.setVisible(false);
-			player2Prev.setVisible(false);
-
-			player3PlayCard.setVisible(true);
-			player3Next.setVisible(true);
-			player3Prev.setVisible(true);
-
-			player4PlayCard.setVisible(false);
-			player4Next.setVisible(false);
-			player4Prev.setVisible(false);
 		}
 
 		if(game.currentPlayer() == game.getPlayer4()) {
@@ -686,18 +443,6 @@ public class FXMLDocumentController implements Initializable {
 			player1PlayCard.setVisible(false);
 			player1Next.setVisible(false);
 			player1Prev.setVisible(false);
-
-			player2PlayCard.setVisible(false);
-			player2Next.setVisible(false);
-			player2Prev.setVisible(false);
-
-			player3PlayCard.setVisible(false);
-			player3Next.setVisible(false);
-			player3Prev.setVisible(false);
-
-			player4PlayCard.setVisible(true);
-			player4Next.setVisible(true);
-			player4Prev.setVisible(true);
 		}
 
 
@@ -736,7 +481,7 @@ public class FXMLDocumentController implements Initializable {
 				game.getDeck().remove(i);
 			}
 		}
-		
+
 
 		//initialize the current cards in each players hand
 		//(the card they are looking at)
@@ -746,6 +491,167 @@ public class FXMLDocumentController implements Initializable {
 		game.getPlayer4().setCurrentCard(game.getPlayer4().getPlayerDeck().get(0));
 
 		displayBoard();
+	}
+
+
+	//FIXME: doesnt work for skips, maybe make aiMove return a true or false
+	private void AI() {
+
+		if(game.currentPlayer() == game.getPlayer2()) {
+
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+
+			if(game.aiMove(game.currentPlayer())) {
+
+				if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsWild()) {
+					alert.setContentText("Player 2 plays a wild");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsReverse()) {
+					alert.setContentText("Player 2 plays a reverse");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsSkip()) {
+					alert.setContentText("Player 2 plays a skip");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsPlus2()) {
+					alert.setContentText("Player 2 plays a plus 2");
+				}
+				else {
+					alert.setContentText("Player 2 plays a " + 
+							game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor() + 
+							" " + game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardNumber());
+				}
+			}
+
+			else {
+				alert.setContentText("Player 2 draws a card");
+			}
+
+			alert.showAndWait();
+
+			if(game.getPlayer2().getPlayerDeck().size() == 1) {
+				alert.setHeaderText(null);
+				alert.setContentText("Player 2 UNO!");
+				alert.showAndWait();
+			}
+
+			if (game.isGameOver()) {
+				alert.setHeaderText(null);
+				alert.setContentText("Player 2 wins!");
+				alert.showAndWait();
+				System.exit(0);
+			}
+
+			displayBoard();
+		}
+
+
+		else if(game.currentPlayer() == game.getPlayer3()) {
+
+			Alert alert2 = new Alert(AlertType.INFORMATION);
+			alert2.setHeaderText(null);
+
+			if(game.aiMove(game.currentPlayer())) {
+
+				if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsWild()) {
+					alert2.setContentText("Player 3 plays a wild");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsReverse()) {
+					alert2.setContentText("Player 3 plays a reverse");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsSkip()) {
+					alert2.setContentText("Player 3 plays a skip");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsPlus2()) {
+					alert2.setContentText("Player 3 plays a plus 2");
+				}
+				else {
+					alert2.setContentText("Player 3 plays a " + 
+							game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor() + 
+							" " + game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardNumber());
+				}
+			}
+			else {
+				alert2.setContentText("Player 3 draws a card");
+			}
+
+			alert2.showAndWait();
+
+			if(game.getPlayer3().getPlayerDeck().size() == 1) {
+				alert2.setHeaderText(null);
+				alert2.setContentText("Player 3 UNO!");
+				alert2.showAndWait();
+			}
+
+			if (game.isGameOver()) {
+				alert2.setHeaderText(null);
+				alert2.setContentText("Player 3 wins!");
+				alert2.showAndWait();
+				System.exit(0);
+			}
+
+			displayBoard();
+		}
+
+
+		else if(game.currentPlayer() == game.getPlayer4()) {
+
+			Alert alert3 = new Alert(AlertType.INFORMATION);
+			alert3.setHeaderText(null);
+
+			if(game.aiMove(game.currentPlayer())) {
+
+
+				if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsWild()) {
+					alert3.setContentText("Player 4 plays a wild");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsReverse()) {
+					alert3.setContentText("Player 4 plays a reverse");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsSkip()) {
+					alert3.setContentText("Player 4 plays a skip");
+				}
+				else if(game.getDiscardPile().get(game.getDiscardPile().size() - 1).getIsPlus2()) {
+					alert3.setContentText("Player 4 plays a plus 2");
+				}
+				else {
+					alert3.setContentText("Player 4 plays a " + 
+							game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardColor() + 
+							" " + game.getDiscardPile().get(game.getDiscardPile().size() - 1).getCardNumber());
+				}
+			}
+			else {
+				alert3.setContentText("Player 4 draws a card");
+			}
+
+			alert3.showAndWait();
+
+			if(game.getPlayer4().getPlayerDeck().size() == 1) {
+				alert3.setHeaderText(null);
+				alert3.setContentText("Player 4 UNO!");
+				alert3.showAndWait();
+			}
+
+			if (game.isGameOver()) {
+				alert3.setHeaderText(null);
+				alert3.setContentText("Player 4 wins!");
+				alert3.showAndWait();
+				System.exit(0);
+			}
+
+			displayBoard();
+		}
+
+		else {
+
+
+			game.getPlayer1().setIsPlayerTurn(true);
+			game.getPlayer2().setIsPlayerTurn(false);
+			game.getPlayer3().setIsPlayerTurn(false);
+			game.getPlayer4().setIsPlayerTurn(false);
+
+			displayBoard();
+		}
 	}
 	/**
 	//START
