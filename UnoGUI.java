@@ -22,12 +22,30 @@ public class UnoGUI extends Application {
     
     @Override
     public void start(final Stage stage) throws Exception {
+    	
+    	String[] a = {"Local Game", "AI Game"};
+        String input = (String) JOptionPane.showInputDialog(null,
+            "Select Game Mode:", "New Game", JOptionPane.QUESTION_MESSAGE,
+            null, a, a[0]);
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLUno.fxml"));
+        Parent root = null;
+		 	
+        if (input == null || input.length() == 0) {
+			System.exit(0);
+		}
+
+        if (input.equals("Local Game"))	{
+            root = FXMLLoader.load(getClass().getResource("FXMLUno.fxml"));
+        }
+
+        if (input.equals("AI Game"))	{
+        	root = FXMLLoader.load(getClass().getResource("FXMLUnoAI.fxml"));
+        }
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Uno Game");
         stage.show();
     }
 
@@ -40,24 +58,7 @@ public class UnoGUI extends Application {
      */
     public static void main(final String[] args) {
         
-        String[] a = {"Local Game", "AI Game"};
-        String input = (String) JOptionPane.showInputDialog(null,
-            "Select Game Mode:", "New Game", JOptionPane.QUESTION_MESSAGE,
-            null, a, a[0]);
-		 	
-        if (input == null || input.length() == 0) {
-			System.exit(0);
-		}
-
-        if (input.equals("Local Game"))	{
-            launch(args);
-        }
-
-        if (input.equals("AI Game"))	{
-            JOptionPane.showMessageDialog(null, 
-            		"AI not supported in release 1.0");
-            System.exit(0);
-        }
+    	launch(args);
        
     }
 }
