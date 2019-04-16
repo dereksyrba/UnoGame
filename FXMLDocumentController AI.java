@@ -338,6 +338,8 @@ public class FXMLDocumentControllerAI implements Initializable {
 		ImageView cardBackImage1 = new ImageView(cardBack);
 		ImageView cardBackImage2 = new ImageView(cardBack);
 		ImageView cardBackImage3 = new ImageView(cardBack);
+		ImageView cardBackImage4 = new ImageView(cardBack);
+		
 
 		cardBackImage1.setFitHeight(180);
 		cardBackImage1.setFitWidth(121);
@@ -347,6 +349,9 @@ public class FXMLDocumentControllerAI implements Initializable {
 
 		cardBackImage3.setFitHeight(180);
 		cardBackImage3.setFitWidth(121);
+		
+		cardBackImage4.setFitHeight(180);
+		cardBackImage4.setFitWidth(121);
 
 		//handles the special cases of if a wild card is put into the discard pile
 		if(game.getDiscardPile().get(game.getDiscardPile().size()-1).getIsWild() && 
@@ -390,9 +395,9 @@ public class FXMLDocumentControllerAI implements Initializable {
 			graphic.setFitWidth(121);
 
 			player1Card.setGraphic(cardBackImage1);
-			player2Card.setGraphic(graphic);
-			player3Card.setGraphic(cardBackImage2);
-			player4Card.setGraphic(cardBackImage3);
+			player2Card.setGraphic(cardBackImage2);
+			player3Card.setGraphic(cardBackImage3);
+			player4Card.setGraphic(cardBackImage4);
 
 			player1PlayCard.setVisible(false);
 			player1Next.setVisible(false);
@@ -409,8 +414,8 @@ public class FXMLDocumentControllerAI implements Initializable {
 
 			player1Card.setGraphic(cardBackImage1);
 			player2Card.setGraphic(cardBackImage2);
-			player3Card.setGraphic(graphic);
-			player4Card.setGraphic(cardBackImage3);
+			player3Card.setGraphic(cardBackImage3);
+			player4Card.setGraphic(cardBackImage4);
 
 			player1Card.setVisible(true);
 			player2Card.setVisible(true);
@@ -433,7 +438,7 @@ public class FXMLDocumentControllerAI implements Initializable {
 			player1Card.setGraphic(cardBackImage1);
 			player2Card.setGraphic(cardBackImage2);
 			player3Card.setGraphic(cardBackImage3);
-			player4Card.setGraphic(graphic);
+			player4Card.setGraphic(cardBackImage4);
 
 			player1Card.setVisible(true);
 			player2Card.setVisible(true);
@@ -494,7 +499,9 @@ public class FXMLDocumentControllerAI implements Initializable {
 	}
 
 
-	//FIXME: doesnt work for skips, maybe make aiMove return a true or false
+	/**
+	 * Helper method that handles the AI player's turns
+	 */
 	private void AI() {
 
 		if(game.currentPlayer() == game.getPlayer2()) {
