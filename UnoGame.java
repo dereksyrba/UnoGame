@@ -31,7 +31,9 @@ public class UnoGame {
 	/** A boolean value to keep track of the clockwise or 
 	 * counterclockwise rotation of the turns.*/
 	private boolean isReverse = false;
-	
+
+	/** The player who's turn is currently up*/
+	private Player currentPlayer;
 
 	/**
 	 * Getter method to return the game deck.
@@ -41,8 +43,8 @@ public class UnoGame {
 	public ArrayList<UnoCards> getDeck() {
 		return this.deck;
 	}
-	
-	
+
+
 	/**
 	 * Getter method to return the game discard pile.
 	 * 
@@ -51,8 +53,8 @@ public class UnoGame {
 	public ArrayList<UnoCards> getDiscardPile() {
 		return this.discardPile;
 	}
-	
-	
+
+
 	/**
 	 * Getter method to return player1.
 	 * 
@@ -61,8 +63,8 @@ public class UnoGame {
 	public Player getPlayer1() {
 		return this.player1;
 	}
-	
-	
+
+
 	/**
 	 * Getter method to return player2.
 	 * 
@@ -71,8 +73,8 @@ public class UnoGame {
 	public Player getPlayer2() {
 		return this.player2;
 	}
-	
-	
+
+
 	/**
 	 * Getter method to return player3.
 	 * 
@@ -81,8 +83,8 @@ public class UnoGame {
 	public Player getPlayer3() {
 		return this.player3;
 	}
-	
-	
+
+
 	/**
 	 * Getter method to return player4.
 	 * 
@@ -182,6 +184,8 @@ public class UnoGame {
 	 * @param num - the number of card to be drawn from the deck.
 	 */
 	public void drawCard(final Player player, final int num) {
+		
+		reshuffle();
 
 		for (int i = 0; i < num; i++) { 
 			//draws a card from the 0 index position (top) 
@@ -266,7 +270,7 @@ public class UnoGame {
 			} else if (player4.getIsPlayerTurn()) {
 				next = player1;
 			}
-			
+
 			//handles the reverse order (clockwise)
 		} else {
 			if (player1.getIsPlayerTurn()) {
@@ -456,7 +460,7 @@ public class UnoGame {
 
 				//creates the 4 plus 4 wilds
 			} else {
-				UnoCards newWild = new UnoCards("white", -1, true,
+				UnoCards newWild = new UnoCards("black", -1, true,
 						false, true, false, false);
 				deck.add(newWild);
 			}
@@ -561,7 +565,7 @@ public class UnoGame {
 	 */
 	public void reshuffle() {
 
-		if (deck.size() == 0) {
+		if (deck.size() == 5) {
 
 			//adds each card from the discard pile back into the draw
 			//pile, except the last one (the card on top)
@@ -570,11 +574,161 @@ public class UnoGame {
 				discardPile.remove(0);
 			}
 
+
 			shuffleDeck(deck);
 		}
 	}
 
 
+	//TODO Let AI make a decision of the color based on the majority color in their deck
+	public boolean aiMove(Player player) {
+		
+		String currcolor = discardPile.get((discardPile.size() -1)).getCardColor();
+		float cardsOfCurrColor = 0;
+		float deckSize = player.getPlayerDeck().size();
+		String majorityColor;
+		boolean hasWild = false;
+		boolean hasValidCard = false;
+
+		for(int i = 0; i < deckSize; i++)
+		{
+			if(isValid(player.getPlayerDeck().get(i), discardPile.get(discardPile.size() - 1)))
+			{
+				hasValidCard = true;
+				break;
+			}
+		}
+		if(hasValidCard)
+		{
+			// Find out how many cards in the ai's deck are the 
+			// same color as the current card.
+			for(int i = 0; i < deckSize; i++)
+			{
+				if(player.getPlayerDeck().get(i).getCardColor().equals(currcolor))
+				{
+					cardsOfCurrColor++;
+				}
+			}
+
+			int blue = 0;
+			int green = 0;
+			int yellow = 0;
+			int red = 0;
+
+			for(int i = 0; i < deckSize; i++)
+			{
+				switch(player.getPlayerDeck().get(i).getCardColor())
+				{
+				case "blue":
+				{
+					blue += 1;
+				}
+				break;
+				case "green":
+				{
+					green += 1;
+				}
+				break;
+				case "yellow":
+				{
+					yellow += 1;
+				}
+				break;
+				case "red":
+				{
+					red += 1;
+				}
+				break;
+
+				}
+			}
+
+			if(blue > green && blue > red && blue > yellow)
+			{
+				majorityColor = "blue";
+			}
+			else if(green > red && green > yellow)
+			{
+				majorityColor = "green";
+			}
+			else if (red > yellow)
+			{
+				majorityColor = "red";
+			}
+			else
+			{
+				majorityColor = "yellow";
+			}
+
+			for(int i = 0; i < deckSize; i++)
+			{
+				if(player.getPlayerDeck().get(i).getIsWild())
+				{
+					hasWild = true;
+					break;
+				}
+			}
+
+			// If the ratio of cards of current color to size of whole deck is unfavorable, play a wild card if possible
+			if(cardsOfCurrColor/deckSize < 0.3 && hasWild)
+			{
+				for(int i = 0; i < deckSize; i++)
+				{
+					if(player.getPlayerDeck().get(i).getIsWild())
+					{
+						playCard(player, player.getPlayerDeck().get(i));
+						discardPile.get(discardPile.size()-1).setCardColor(majorityColor);
+						return true;
+					}
+				}
+			}
+			else
+			{
+				for(int n = 0; n < deckSize; n++)
+				{
+					if(player.getPlayerDeck().get(n).getIsPlus2() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
+					{
+						playCard(player, player.getPlayerDeck().get(n));
+						return true;
+					}
+				}
+				for(int n = 0; n < deckSize-1; n++)
+				{
+					if(player.getPlayerDeck().get(n).getIsSkip() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
+					{
+						playCard(player, player.getPlayerDeck().get(n));
+						return true;
+					}
+				}
+
+				for(int n = 0; n < deckSize; n++)
+				{
+					if(player.getPlayerDeck().get(n).getIsReverse() && isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
+					{
+						playCard(player, player.getPlayerDeck().get(n));
+						return true;
+					}
+				}
+
+				for(int n = 0; n < deckSize; n++)
+				{
+					if(isValid(player.getPlayerDeck().get(n), discardPile.get(discardPile.size() -1)))
+					{
+						playCard(player, player.getPlayerDeck().get(n));
+						return true;
+					}
+				}	
+			}
+		}
+		else
+		{
+			drawCard(player, 1);
+		}
+		
+		return false;
+		
+	}
+	
 }
 
 
