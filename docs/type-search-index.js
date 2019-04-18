@@ -1,1 +1,0 @@
-typeSearchIndex = [{"p":"uno","l":"UnoGame"}]
